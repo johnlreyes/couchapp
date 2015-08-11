@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using couchapp with multiple design documents &mdash; CouchApp 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="CouchApp 1.0.1 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-couchapp-with-multiple-design-documents">
+<h1>Using couchapp with multiple design documents<a class="headerlink" href="#using-couchapp-with-multiple-design-documents" title="Permalink to this headline">¶</a></h1>
+<p>Here is what I did to use couchapp with multiple design documents. I
+want to setup a project for a new database test6 with a design doc
+called design_doc1</p>
+<p>Make sure couchdb and couchapp are installed and that couchdb is
+started.</p>
+<p>First check that test6 doesn&#8217;t exist</p>
+<div class="highlight-python"><div class="highlight"><pre>$ curl http://127.0.0.1:5984/test6
+
+{&quot;error&quot;:&quot;not_found&quot;,&quot;reason&quot;:&quot;no_db_file&quot;}
+</pre></div>
+</div>
+<p>OK. That was expected.</p>
+<p>Generate a new couchapp.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ couchapp generate test6
+</pre></div>
+</div>
+<p>On my machine (Debian squeeze), couchapp seems to generate the directory
+with owner root. Change owner to john</p>
+<div class="highlight-python"><div class="highlight"><pre>$ chown -R john ./test6
+$ cd test6
+$ ls
+
+_attachments   evently  language  shows    vendor
+couchapp.json  _id      lists     updates  views
+
+$ vi .couchapprc
+</pre></div>
+</div>
+<p>Now edit .couchapprc as follows so it looks like</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span> <span class="s">&quot;env&quot;</span><span class="p">:</span>
+  <span class="p">{</span> <span class="s">&quot;default&quot;</span><span class="p">:</span>
+    <span class="p">{</span>  <span class="s">&quot;db&quot;</span><span class="p">:</span><span class="s">&quot;http://127.0.0.1:5984/test6&quot;</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Check that it was saved correctly:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cat  .couchapprc
+
+{ &quot;env&quot;:
+  { &quot;default&quot;:
+    {  &quot;db&quot;:&quot;http://127.0.0.1:5984/test6&quot; }
+  }
+}
+</pre></div>
+</div>
+<p>NOTE: It looks like couchapp doesn&#8217;t pick up the default db in what
+follows when I do couchapp push</p>
+<p>Make a directory for design documents:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ mkdir _design
+</pre></div>
+</div>
+<p>Make a directory for design_doc1</p>
+<div class="highlight-python"><div class="highlight"><pre>$ mkdir _design/design_doc1
+</pre></div>
+</div>
+<p>move the design doc files created with couchapp generate to the
+design_doc1 directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ mv _attachments evently lists shows updates vendor views ./_design/design_doc1
+</pre></div>
+</div>
+<p>review the directory structure</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ls  _design/design_doc1
+
+_attachments  evently  lists  shows  updates  vendor  views
+</pre></div>
+</div>
+<p>now push design_doc1. Note that I have to include the url of the
+database as a parameter. Couchapp doesn&#8217;t seem to pick up the default db
+when I push from the _design directory.</p>
+<div class="highlight-python"><div class="highlight"><pre>http://127.0.0.1:5984/test6     is the url of the new db
+
+$ couchapp push _design/design_doc1 http://127.0.0.1:5984/test6
+2010-08-23 15:47:45 [INFO] Visit your CouchApp here:
+http://127.0.0.1:5984/test6/_design/design_doc1/index.html
+</pre></div>
+</div>
+<p>Now check to see if db test6 was created:</p>
+<div class="highlight-python"><div class="highlight"><pre>    $ curl http://127.0.0.1:5984/test6
+{&quot;db_name&quot;:&quot;test6&quot;,&quot;doc_count&quot;:1,&quot;doc_del_count&quot;:0,&quot;update_seq&quot;:1,&quot;purge_seq&quot;:0,&quot;compact_running&quot;:false,&quot;disk_size&quot;:106585,&quot;instance_start_time&quot;:&quot;1282603665650439&quot;,&quot;disk_format_version&quot;:5}
+</pre></div>
+</div>
+<p>Now go into a browser and take a look at the test6 db</p>
+<div class="highlight-python"><div class="highlight"><pre>http://127.0.0.1:5984/_utils/database.html?test6
+</pre></div>
+</div>
+<p>You should see &#8220;_design/design_doc1&#8221; listed on the html page. That&#8217;s
+good, it means that design_doc1 was created.</p>
+<p>Take a look at design_doc1 in the futon web admin. Open this URL in
+your browser:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://127.0.0.1:5984/_utils/document.html?test6/_design/design_doc1
+</pre></div>
+</div>
+<p>You should see a nice listing of the design_doc1. Try opening the index
+page in your browser:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://127.0.0.1:5984/_utils/document.html?test6/_design/design_doc1/index.html
+</pre></div>
+</div>
+<p>This should serve up index.html from the _attachments subdirectory
+test6/_design/design_doc1/_attachments/index.html</p>
+<p>Couchapp generate had created a sample view called recent-items. Try
+querying it:</p>
+<div class="highlight-python"><div class="highlight"><pre>    $ curl http://127.0.0.1:5984/test6/_design/design_doc1/_view/recent-items
+
+{&quot;total_rows&quot;:0,&quot;offset&quot;:0,&quot;rows&quot;:[]}
+</pre></div>
+</div>
+<p>That&#8217;s it. Multiple design can be used to create different interfaces
+for users with different roles. For example, consider some data and the
+different ways that and admin versus a regular user interacting with it.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/couchapp-org/multiple-design-docs.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Benoit Chesneau.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/couchapp-org/multiple-design-docs.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

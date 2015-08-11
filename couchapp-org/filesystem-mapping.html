@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Couchapp Filesystem Mapping &mdash; CouchApp 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="CouchApp 1.0.1 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-couchapp-filesystem-mapping">
+<h1>The Couchapp Filesystem Mapping<a class="headerlink" href="#the-couchapp-filesystem-mapping" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">couchapp</span></code> script has a cool way of pushing files to CouchDB&#8217;s
+design documents. The <a class="reference external" href="http://couchdbkit.org/docs/storing_docs_and_designdocs_on_filesystem.html">filesystem
+mapping</a>
+is done via the <a class="reference external" href="http://couchdbkit.org/">couchdbkit</a> Python library.</p>
+<p>If you have folders like:</p>
+<div class="highlight-python"><div class="highlight"><pre>myapp/
+  views/
+    foobar/
+      map.js
+      reduce.js
+</pre></div>
+</div>
+<p>It will create a design document like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;_id&quot;</span> <span class="p">:</span> <span class="s">&quot;_design/myapp&quot;</span><span class="p">,</span>
+  <span class="s">&quot;views&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="s">&quot;foobar&quot;</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="s">&quot;map&quot;</span> <span class="p">:</span> <span class="s">&quot;contents of map.js&quot;</span><span class="p">,</span>
+      <span class="s">&quot;reduce&quot;</span> <span class="p">:</span> <span class="s">&quot;contents of reduce.js&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is designed to make it so you get proper syntax highlighting in
+your text editor.</p>
+<div class="section" id="complete-filesystem-to-design-doc-mapping-example">
+<h2>Complete Filesystem-to-Design Doc Mapping Example<a class="headerlink" href="#complete-filesystem-to-design-doc-mapping-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>myapp/
+  _attachments/
+    images/
+      logo.png
+  _docs/
+    sample.json
+    doc_needing_encoding/
+      _id (the ID for the document as text on the first line of this file)
+      title (same as ID, just for the title field. Repeat pattern as needed)
+      content.html (HTML content that will be encoded when it&#39;s added to the JSON doc)
+  lists/
+    xml.js
+  rewrites.js
+  shows/
+    preview.js
+    xml.js
+  updates/
+    in-place.js
+  views/
+    foobar/
+      map.js
+      reduce.js
+  validate_doc_update.js
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">_attachments</span></code> folder will turn each file into an attachment on
+the resulting Design Document. The attachments will be named based on
+their file path (ex: &#8220;image/logo.png&#8221;).</p>
+<p>The contents of the <code class="docutils literal"><span class="pre">_docs</span></code> folder are turned into actual JSON
+documents in CouchDB. The contents of the .json files will be input
+exactly as they are in the file. The name of the document with be either
+the file name or the <code class="docutils literal"><span class="pre">_id</span></code> field from the JSON object in that file.</p>
+<p>Folders under <code class="docutils literal"><span class="pre">_docs</span></code> will be turned into documents with each file in
+the folder being a key/value pair in the resulting JSON document. HTML
+and XML files (and maybe others?) will be JSON encoded before being
+added to the JSON document. An <code class="docutils literal"><span class="pre">_id</span></code> file will be used (if present) as
+the ID of the new document. Otherwise the folder name will become the
+ID.</p>
+<p>The rest of the folder structure above will become this JSON Design
+Document</p>
+<div class="highlight-python"><div class="highlight"><pre>{
+  &quot;_id&quot; : &quot;_design/myapp&quot;,
+  &quot;_attachments&quot;: {
+    &quot;images/logo.png&quot;: {
+      &quot;content_type&quot;: &quot;image/png&quot;,&quot;revpos&quot;:1,&quot;digest&quot;:&quot;md5-GDPL+eLwE7kzEDWY7X4KdQ==&quot;,&quot;length&quot;:886,&quot;stub&quot;:true
+    }
+  },
+  &quot;lists&quot;: {
+    &quot;xml&quot;: &quot;function...&quot;
+  },
+  &quot;rewrites&quot;: &quot;function...&quot;,
+  &quot;shows&quot;: {
+    &quot;preview&quot;: &quot;function...&quot;,
+    &quot;xml&quot;: &quot;function...&quot;
+  }
+  &quot;updates&quot;: {
+    &quot;in-place&quot;: &quot;function...&quot;
+  },
+  &quot;views&quot;: {
+    &quot;foobar&quot;: {
+      &quot;map&quot;: &quot;function...&quot;,
+      &quot;reduce&quot;: &quot;function...&quot;
+    }
+  },
+  &quot;validate_doc_update&quot;: &quot;function...&quot;,
+}
+</pre></div>
+</div>
+<div class="section" id="evently">
+<h3>Evently<a class="headerlink" href="#evently" title="Permalink to this headline">¶</a></h3>
+<p>It&#8217;s not a very big leap to see that an Evently widget could be editing
+in a filesystem tree like this: (Picking the most complex &#8211;
+<code class="docutils literal"><span class="pre">nestedEvently</span></code> from the <a class="reference external" href="evently-primer">Evently Primer</a>
+document.)</p>
+<div class="highlight-python"><div class="highlight"><pre>myapp/
+  evently/
+    mustache.html
+    data.json
+    selectors/
+      span.word/
+        click/
+          mustache.html
+        mouseenter/
+          mustache.html
+        congrats/
+          mustache.html
+          data.js
+      a[href=#win]/
+        click.js
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Couchapp Filesystem Mapping</a><ul>
+<li><a class="reference internal" href="#complete-filesystem-to-design-doc-mapping-example">Complete Filesystem-to-Design Doc Mapping Example</a><ul>
+<li><a class="reference internal" href="#evently">Evently</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/couchapp-org/filesystem-mapping.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Benoit Chesneau.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/couchapp-org/filesystem-mapping.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started &mdash; CouchApp 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="CouchApp 1.0.1 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial you will learn how to create your first CouchApp
+(embedded applications in <a class="reference external" href="http://couchdb.apache.org/">CouchDB</a>)
+using the <code class="docutils literal"><span class="pre">couchapp</span></code> script.</p>
+<div class="section" id="generate-your-application">
+<h2>1. Generate your application<a class="headerlink" href="#generate-your-application" title="Permalink to this headline">¶</a></h2>
+<p>couchapp provides you the <code class="docutils literal"><span class="pre">generate</span></code> command to initialize your first
+CouchApp. It will create an application skeleton by generating needed
+folders and files to start. Run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ couchapp generate helloworld
+</pre></div>
+</div>
+<div class="figure" id="id1">
+<img alt="couchapp generate" src="couchapp-org/attachments/gettingstarted01.png" />
+<p class="caption"><span class="caption-text">couchapp generate</span></p>
+</div>
+</div>
+<div class="section" id="create-a-show-function">
+<h2>2. Create a show function<a class="headerlink" href="#create-a-show-function" title="Permalink to this headline">¶</a></h2>
+<p>To display our hello we will create a show function.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cd helloworld/
+$ couchapp generate show hello
+</pre></div>
+</div>
+<p>Here the generate command create a file named <code class="docutils literal"><span class="pre">hello.js</span></code> in the folder
+<code class="docutils literal"><span class="pre">shows</span></code>. The content of this file is :</p>
+<div class="highlight-python"><div class="highlight"><pre>function(doc, req) {
+
+}
+</pre></div>
+</div>
+<p>which is default template for <code class="docutils literal"><span class="pre">show</span></code> functions.</p>
+<p>For now we only want to display the string &#8220;Hello World&#8221;. Edit your show
+function like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>function(doc, req) {
+    return &quot;Hello World&quot;;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="push-your-couchapp">
+<h2>3. Push your CouchApp<a class="headerlink" href="#push-your-couchapp" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have created our basic application, it&#8217;s time to <strong>push</strong> it
+to our CouchDB server. Our CouchDB server is at the url
+<a class="reference external" href="http://127.0.0.1:5984">http://127.0.0.1:5984</a> and we want to push our app in the database
+testdb:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ couchapp push testdb
+</pre></div>
+</div>
+<div class="figure" id="id2">
+<img alt="couchapp push" src="couchapp-org/attachments/gettingstarted02.png" />
+<p class="caption"><span class="caption-text">couchapp push</span></p>
+</div>
+<p>Go on</p>
+<div class="highlight-python"><div class="highlight"><pre>http://127.0.0.1:5984/testdb/_design/helloworld/_show/hello
+</pre></div>
+</div>
+<p>you will see:</p>
+<div class="figure" id="id3">
+<img alt="CouchApp hello world" src="couchapp-org/attachments/gettingstarted03.png" />
+<p class="caption"><span class="caption-text">CouchApp hello world</span></p>
+</div>
+</div>
+<div class="section" id="clone-your-couchapp">
+<h2>4. Clone your CouchApp<a class="headerlink" href="#clone-your-couchapp" title="Permalink to this headline">¶</a></h2>
+<p>So your friend just pushed the helloworld app from his computer. But you
+want to edit the CouchApp on your own computer. That&#8217;s easy, just
+<strong>clone</strong> his application:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ couchapp clone http://127.0.0.1:5984/testdb/_design/helloworld helloworld
+</pre></div>
+</div>
+<p>This command fetches the CouchApp <code class="docutils literal"><span class="pre">helloworld</span></code> from the remote
+database of your friend.</p>
+<div class="figure" id="id4">
+<img alt="couchapp clone" src="couchapp-org/attachments/gettingstarted04.png" />
+<p class="caption"><span class="caption-text">couchapp clone</span></p>
+</div>
+<p>Now you can edit the couchapp on your computer.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting Started</a><ul>
+<li><a class="reference internal" href="#generate-your-application">1. Generate your application</a></li>
+<li><a class="reference internal" href="#create-a-show-function">2. Create a show function</a></li>
+<li><a class="reference internal" href="#push-your-couchapp">3. Push your CouchApp</a></li>
+<li><a class="reference internal" href="#clone-your-couchapp">4. Clone your CouchApp</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/couchapp-org/getting-started.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Benoit Chesneau.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/couchapp-org/getting-started.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
