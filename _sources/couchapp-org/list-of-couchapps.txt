@@ -1,9 +1,12 @@
+.. _list-of-couchapps:
+
 List of CouchApps
 =================
 
-Please add links to CouchApps (alphabetical order will help avoid
-duplicates in the long run). You may also be interested in `the Couchapp
-Garden <garden.md>`__.
+Please add links to CouchApps
+(alphabetical order will help avoid duplicates in the long run).
+You may also be interested in `the Couchapp Garden <garden.html>`_.
+
 
 Afghan War Diary
 ----------------
@@ -11,24 +14,25 @@ Afghan War Diary
 A GeoCouch app that provides a browseable map of entries from the
 Wikileaks Afghan Diaries.
 
-`Code <http://github.com/benoitc/afgwardiary>`__
+`Code <http://github.com/benoitc/afgwardiary>`_
 
-`Running
-Version <http://pollen.nymphormation.org/afgwar/_design/afgwardiary/_show/report/020E34BB-E8D2-49FF-B0C7-4D7A0C477950>`__
 
-`BlueInk <http://github.com/bigbluehat/blueink>`__
---------------------------------------------------
+BlueInk
+-------
 
 The beginnings of a conversion of the `BlueInk
-CMS <http://blueinkcms.com/>`__ to a CouchApp. Currently, it can serve
-as a view-engine for web pages wearing Mustache templates.
+CMS <http://blueinkcms.com/>`_ to a CouchApp. Currently, it can serve
+as a view-engine for web pages wearing Mustache_ templates.
+
+`Code <http://github.com/bigbluehat/blueink>`_
+
 
 Bookkeeping
 -----------
 
 A little couchapp that helps visualizing expenses for my household.
 Currently in German only. I am working on a branch that uses views and
-\_changes instead of a pure client side implementation with jquery.
+``_changes`` instead of a pure client side implementation with jquery.
 
 `Code <http://github.com/ckeen/bookkeeping>`__
 
@@ -36,9 +40,9 @@ Boom Amazing
 ------------
 
 Presentation software with a twist. Uses SVG and pan and zoom. Based on
-`Sammy.js <http://code.quirkey.com/sammy/>`__.
+`Sammy.js <http://code.quirkey.com/sammy/>`_.
 
-`Code <http://github.com/langalex/boom_amazing>`__
+`Code <http://github.com/langalex/boom_amazing>`_
 
 Brunch-Colors
 -------------
@@ -388,3 +392,6 @@ built entirely using CouchDB that can be served as a couchapp.
 `Code <https://github.com/lmatteis/hckr.it>`__
 
 `Demo <http://www.hckr.it/>`__
+
+
+.. _Mustache: http://mustache.github.io/

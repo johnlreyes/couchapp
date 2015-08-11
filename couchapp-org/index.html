@@ -39,38 +39,27 @@
             
   <div class="section" id="couchapp-web-application-hosted-in-apache-couchdb">
 <h1>CouchApp: Web application hosted in Apache CouchDB<a class="headerlink" href="#couchapp-web-application-hosted-in-apache-couchdb" title="Permalink to this headline">¶</a></h1>
-<p>CouchApps are JavaScript and HTML5 applications served directly from CouchDB.
-If you can fit your application into those constraints,
-then you get CouchDB&#8217;s scalability and flexibility <strong>for free</strong>
-(and deploying your app is as simple as replicating it to the production server).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The original CouchApp command line tools were created in 2008 / 2009 by
-&#64;benoitc and &#64;jchris. They still work, and have been feature complete
-for a long time. <code class="docutils literal"><span class="pre">couchapp</span></code> has been replaced and is compatible with the
-old <code class="docutils literal"><span class="pre">couchapp</span></code> tool.</p>
-</div>
-<p>There are also tools for deploying browser-based
-apps to JSON web servers and <a class="reference external" href="http://pouchdb.com/">PouchDB</a>
-is the future of browser based sync apps. It can sync with the same sync
-protocols but uses the built-in storage of HTML5.</p>
-<div class="toctree-wrapper compound">
-<ul class="simple">
-</ul>
+<p class="last">This documentation is working in progress</p>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro/what-is-couchapp.html">What is CouchApp?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backbone.html">Using backbone.js with CouchApp</a></li>
+</ul>
+</div>
+<div class="section" id="external-resources">
+<h3>External Resources<a class="headerlink" href="#external-resources" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><a class="reference external" href="what-is-couchapp.html">What is CouchApp?</a></li>
 <li>The <a class="reference external" href="http://guide.couchdb.org/draft/standalone.html">Standalone Applications</a>
 and <a class="reference external" href="http://guide.couchdb.org/draft/managing.html">Managing Design Documents</a>
 chapters of the O&#8217;Reilly CouchDB book</li>
-<li><a class="reference external" href="../getting-started.html">Getting Started Tutorial</a></li>
-<li><a class="reference external" href="videos.html">Video Tutorials and Screencasts</a></li>
-<li><a class="reference external" href="application-help.html">Help with installing and running individual
-applications</a></li>
-<li><a class="reference external" href="backbone.html">Using backbone.js with CouchApps</a></li>
 </ul>
+</div>
 </div>
 <div class="section" id="couchapp-development-tools">
 <h2>CouchApp Development Tools<a class="headerlink" href="#couchapp-development-tools" title="Permalink to this headline">¶</a></h2>
@@ -84,9 +73,16 @@ etc into one or more Design Documents.</p>
 and <a class="reference external" href="https://github.com/benoitc/erica">erica</a> (mentioned below) implement a consistent
 filesystem-to-design-document mapping</li>
 </ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The original CouchApp command line tools were created in 2008 / 2009 by
+&#64;benoitc and &#64;jchris. They still work, and have been feature complete
+for a long time. <code class="docutils literal"><span class="pre">couchapp</span></code> has been replaced and is compatible with the
+old <code class="docutils literal"><span class="pre">couchapp</span></code> tool.</p>
+</div>
 <div class="section" id="curl">
-<h3><code class="docutils literal"><span class="pre">curl</span></code><a class="headerlink" href="#curl" title="Permalink to this headline">¶</a></h3>
-<p>The simplest way to develop a couchapp would be to use curl from the
+<h3>cURL<a class="headerlink" href="#curl" title="Permalink to this headline">¶</a></h3>
+<p>The simplest way to develop a couchapp would be to use <code class="docutils literal"><span class="pre">curl</span></code> from the
 command line.</p>
 </div>
 <div class="section" id="id1">
@@ -246,9 +242,12 @@ Tutorial</a></li>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">CouchApp: Web application hosted in Apache CouchDB</a><ul>
-<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li><a class="reference internal" href="#external-resources">External Resources</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#couchapp-development-tools">CouchApp Development Tools</a><ul>
-<li><a class="reference internal" href="#curl"><code class="docutils literal"><span class="pre">curl</span></code></a></li>
+<li><a class="reference internal" href="#curl">cURL</a></li>
 <li><a class="reference internal" href="#id1">CouchApp command line tool</a></li>
 <li><a class="reference internal" href="#node-couchapp-js">node.couchapp.js</a></li>
 <li><a class="reference internal" href="#erica">erica</a></li>

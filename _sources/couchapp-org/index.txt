@@ -1,37 +1,26 @@
 CouchApp: Web application hosted in Apache CouchDB
 ==================================================
 
-CouchApps are JavaScript and HTML5 applications served directly from CouchDB.
-If you can fit your application into those constraints,
-then you get CouchDB's scalability and flexibility **for free**
-(and deploying your app is as simple as replicating it to the production server).
-
 .. note::
-    The original CouchApp command line tools were created in 2008 / 2009 by
-    @benoitc and @jchris. They still work, and have been feature complete
-    for a long time. ``couchapp`` has been replaced and is compatible with the
-    old ``couchapp`` tool.
-
-There are also tools for deploying browser-based
-apps to JSON web servers and `PouchDB <http://pouchdb.com/>`_
-is the future of browser based sync apps. It can sync with the same sync
-protocols but uses the built-in storage of HTML5.
-
-.. toctree::
+    This documentation is working in progress
 
 
 Getting Started
 ---------------
 
-- `What is CouchApp? <what-is-couchapp.html>`_
+.. toctree::
+    :maxdepth: 1
+
+    intro/what-is-couchapp
+    Getting Started Tutorial <../gettingstarted>
+    backbone
+
+
+External Resources
+~~~~~~~~~~~~~~~~~~~~~
 - The `Standalone Applications <http://guide.couchdb.org/draft/standalone.html>`_
   and `Managing Design Documents <http://guide.couchdb.org/draft/managing.html>`_
   chapters of the O'Reilly CouchDB book
-- `Getting Started Tutorial <../getting-started.html>`_
-- `Video Tutorials and Screencasts <videos.html>`_
-- `Help with installing and running individual
-  applications <application-help.html>`_
-- `Using backbone.js with CouchApps <backbone.html>`_
 
 
 CouchApp Development Tools
@@ -47,11 +36,17 @@ etc into one or more Design Documents.
   and erica_ (mentioned below) implement a consistent
   filesystem-to-design-document mapping
 
+.. note::
+    The original CouchApp command line tools were created in 2008 / 2009 by
+    @benoitc and @jchris. They still work, and have been feature complete
+    for a long time. ``couchapp`` has been replaced and is compatible with the
+    old ``couchapp`` tool.
 
-``curl``
-~~~~~~~~~
 
-The simplest way to develop a couchapp would be to use curl from the
+cURL
+~~~~
+
+The simplest way to develop a couchapp would be to use ``curl`` from the
 command line.
 
 
