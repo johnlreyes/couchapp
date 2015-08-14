@@ -3,6 +3,8 @@
 Using CouchApp with Multiple Design Documents
 =============================================
 
+.. highlight:: shell
+
 Here is what I did to use couchapp with multiple design documents.
 I want to setup a project for a new database ``test6`` with a design doc
 called ``design_doc1``.
@@ -10,44 +12,29 @@ called ``design_doc1``.
 Make sure couchdb and couchapp are installed and that couchdb is
 started.
 
-First check that ``test6`` doesn't exist
-
-.. code-block:: shell
+First check that ``test6`` doesn't exist::
 
     $ curl http://127.0.0.1:5984/test6
-
     {"error":"not_found","reason":"no_db_file"}
 
 OK. That was expected.
 
-Generate a new CouchApp.
-
-::
+Generate a new CouchApp::
 
     $ couchapp generate test6
 
-On my machine (Debian squeeze), couchapp seems to generate the directory
-with owner root. Change owner to john
-
-::
-
-    $ chown -R john ./test6
-    $ cd test6
     $ ls
-
     _attachments   evently  language  shows    vendor
     couchapp.json  _id      lists     updates  views
 
-    $ vi .couchapprc
+Now edit ``.couchapprc`` as follows so it looks like
 
-Now edit .couchapprc as follows so it looks like
-
-::
+.. code-block:: javascript
 
     { "env":
-      { "default":
-        {  "db":"http://127.0.0.1:5984/test6" }
-      }
+        { "default":
+            {  "db":"http://127.0.0.1:5984/test6" }
+        }
     }
 
 Check that it was saved correctly:
