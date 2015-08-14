@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Extend couchapp &mdash; CouchApp 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="CouchApp 1.0.1 documentation" href="../../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="extend-couchapp">
+<h1>Extend couchapp<a class="headerlink" href="#extend-couchapp" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<p>Couchapp can easily be extended using external python modules or
+scripts. There are 3 kind of extensions:</p>
+<ul class="simple">
+<li>extensions: allows you to add custom commands to <code class="docutils literal"><span class="pre">couchapp</span></code></li>
+<li>hooks: allows you to add actions on pre-/post
+(push, clone, pushdocs, pushapps) events.</li>
+<li>vendors handlers: allows you to add support for different sources of
+vendor</li>
+</ul>
+<div class="section" id="extensions">
+<h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this headline">¶</a></h2>
+<p>Extensions are eggs or python modules registered in the config file in
+<em>extensions</em> member, e.g.:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="s2">&quot;extensions&quot;</span><span class="o">:</span> <span class="p">[</span>
+   <span class="s2">&quot;egg:mymodule#name&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Eggs uri are entry points uri starting with <code class="docutils literal"><span class="pre">egg:</span></code> prefix.
+To just load python module use an uri with the form:
+<code class="docutils literal"><span class="pre">python:mymodule.myextension</span></code>.</p>
+<p>To load eggs add an entry point in <code class="docutils literal"><span class="pre">couchapp.extension</span></code> sections. More
+info about entry points
+<a class="reference external" href="http://packages.python.org/distribute/pkg_resources.html#entry-points">here</a>.</p>
+<p>An extension is a python module loaded when couchapp start.
+You can add custom commands to couchapp via this way.
+To add custom commands simply add a dict named <code class="docutils literal"><span class="pre">cmdtable</span></code>.
+This dict is under the format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cmdtable</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;cmdname&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="s">&#39;help string&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">params</span></code> is a list of options that can be used for this function (the
+-someoption/&#8211;someoption= args):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">params</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s">&#39;short&#39;</span><span class="p">,</span> <span class="s">&#39;long&#39;</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="s">&#39;help string&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">short</span></code> is the short option used on command line (ex: -v) <code class="docutils literal"><span class="pre">long</span></code> is
+the long option (ex: &#8211;verbose)</p>
+<p><code class="docutils literal"><span class="pre">default</span></code> could be True/False/None/String/Integer</p>
+</div>
+<div class="section" id="hooks">
+<h2>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h2>
+<p>Couchapp offers a powerful mechanism to let you perform automated
+actions in response of different couchapp events (push, clone, generate,
+vendor).</p>
+<p>Hooks are eggs or python modules registered in the config file in
+<code class="docutils literal"><span class="pre">hooks</span></code> member, e.g.:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="s2">&quot;hooks&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;pre-push&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;egg:couchapp#compress&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Like extennsions egg uri start with <code class="docutils literal"><span class="pre">egg:</span></code> prefix and python module with
+<code class="docutils literal"><span class="pre">python:</span></code>. Entry point are added to <code class="docutils literal"><span class="pre">couchapp.hook</span></code> distribution.
+Here is the declaration of coupress hook in couchapp <em>setup.py</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre>setup(
+    name = &#39;Couchapp&#39;,
+    ...
+
+    entry_points=&quot;&quot;&quot;
+    ...
+
+    [couchapp.hook]
+    compress=couchapp.hooks.compress:hook
+
+    ...
+    &quot;&quot;&quot;,
+
+    ...
+)
+</pre></div>
+</div>
+<p>hooks are python functions like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">hook</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">hooktype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>path is the directory of the CouchApp on the filesystem, hooktype is the
+name of the event <code class="docutils literal"><span class="pre">pre-/post-(push|clone|generate|vendor)</span></code> and kwargs
+a list of arguments depending on the event:</p>
+<ul class="simple">
+<li>push: <code class="docutils literal"><span class="pre">dbs</span></code>: list of Database object</li>
+<li>clone: <code class="docutils literal"><span class="pre">source</span></code>: the source of the couchapp to clone</li>
+<li>vendor: <code class="docutils literal"><span class="pre">source</span></code>, the uri of vendor, <code class="docutils literal"><span class="pre">action</span></code>, could be <em>install</em>
+or <em>update</em>.</li>
+<li>generate: None</li>
+</ul>
+<p>Have a look in <a class="reference external" href="http://github.com/couchapp/couchapp/tree/master/couchapp/hooks/compress/">compress hook
+source</a>
+for a complete example.</p>
+</div>
+<div class="section" id="vendors-handlers">
+<h2>Vendors handlers<a class="headerlink" href="#vendors-handlers" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">vendor_uri</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;vendors&#39;</span><span class="p">):</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">parse_uri</span><span class="p">(</span><span class="n">vendor_uri</span><span class="p">,</span> <span class="s">&quot;couchapp.vendor&quot;</span><span class="p">)</span>
+    <span class="n">vendors_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Vendors handlers are used to manage installation or update of vendors.
+Like extensions or hooks vendors handlers are eggs or python modules
+registered in config file:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">&quot;vendors&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;egg:couchapp#git&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;egg:couchapp#hg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;egg:couchapp#couchdb&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>(above is the default). Entry point are added to <code class="docutils literal"><span class="pre">couchapp.vendor</span></code>
+distribution, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>setup(
+    name = &#39;Couchapp&#39;,
+    ...
+
+    entry_points=&quot;&quot;&quot;
+    [couchapp.vendor]
+    git=couchapp.vendors.backends.git:GitVendor
+    hg=couchapp.vendors.backends.hg:HgVendor
+    couchdb=couchapp.vendors.backends.couchdb:CouchdbVendor
+
+    ...
+    &quot;&quot;&quot;,
+
+    ...
+)
+</pre></div>
+</div>
+<p>A vendor is an object inheriting <code class="docutils literal"><span class="pre">couchapp.vendor.base.BackendVendor</span></code>
+class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyVendor</span><span class="p">(</span><span class="n">BackendVendor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; vendor backend interface &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">license</span> <span class="o">=</span>  <span class="s">&#39;&#39;</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">author_email</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">long_description</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+    <span class="n">scheme</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="p">):</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">url:</th><td class="field-body">is the url of the vendor source</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body">the license of the vendor</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">author:</th><td class="field-body">name of author</td>
+</tr>
+<tr class="field-even field"><th class="field-name">author_email:</th><td class="field-body">email of author</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">description:</th><td class="field-body">short description of this vendor</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">long_descrtiption:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">long description</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">scheme:</th><td class="field-body">list of url prefix on which this handler will be use.
+(e.g.: [&#8216;git&#8217;, &#8216;git+ssh&#8217;] for git://|git/ssh:// urls)</td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal"><span class="pre">fetch</span></code> function take the url given in console, the path of
+couchapp.</p>
+<p>Here is an example for the default git vendor:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">GitVendor</span><span class="p">(</span><span class="n">BackendVendor</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://github.com/couchapp/couchapp&#39;</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="s">&#39;Benoit Chesneau&#39;</span>
+    <span class="n">author_email</span> <span class="o">=</span> <span class="s">&#39;benoitc@e-engura.org&#39;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s">&#39;Git vendor handler&#39;</span>
+    <span class="n">long_description</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;couchapp vendor install|update from git::</span>
+
+<span class="s">    git://somerepo.git (use git+ssh:// for ssh repos)</span>
+<span class="s">    &quot;&quot;&quot;</span>
+
+    <span class="n">scheme</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="s">&#39;git+ssh&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="p">):</span>
+        <span class="o">....</span>
+</pre></div>
+</div>
+<p>Full source is <a class="reference external" href="http://github.com/couchapp/couchapp/blob/master/couchapp/vendors/backends/git.py">on the git
+repo</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Extend couchapp</a><ul>
+<li><a class="reference internal" href="#extensions">Extensions</a></li>
+<li><a class="reference internal" href="#hooks">Hooks</a></li>
+<li><a class="reference internal" href="#vendors-handlers">Vendors handlers</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/couchapp-org/couchapp/extends.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Benoit Chesneau.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../../_sources/couchapp-org/couchapp/extends.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

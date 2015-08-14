@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; CouchApp 1.0.1 documentation</title>
+    <title>CouchApps and DesktopCouch &mdash; CouchApp 1.0.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -37,26 +37,32 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="introduction">
-<span id="intro"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>CouchApps are JavaScript and HTML5 applications served directly from CouchDB.
-If you can fit your application into those constraints,
-then you get CouchDB&#8217;s scalability and flexibility <strong>for free</strong>
-(and deploying your app is as simple as replicating it to the production server).</p>
-<p>There are also tools for deploying browser-based
-apps to JSON web servers and <a class="reference external" href="http://pouchdb.com/">PouchDB</a>
-is the future of browser based sync apps. It can sync with the same sync
-protocols but uses the built-in storage of HTML5.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="what-is-couchapp.html">What is CouchApp?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="what-is-couchapp.html#the-basics">The Basics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="what-is-couchapp.html#couchdb-s-built-in-programming-model">CouchDB&#8217;s built-in programming model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="what-is-couchapp.html#hello-world">Hello World</a></li>
-<li class="toctree-l2"><a class="reference internal" href="what-is-couchapp.html#make-it-easy-it-with-the-couchapp-toolchain">Make it easy it with the CouchApp toolchain</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="couchapps-and-desktopcouch">
+<span id="couchdesktop"></span><h1>CouchApps and DesktopCouch<a class="headerlink" href="#couchapps-and-desktopcouch" title="Permalink to this headline">¶</a></h1>
+<p>In <strong>version 0.7</strong>, <code class="docutils literal"><span class="pre">couchapp.py</span></code> has a new feature allowing you
+to push, clone and browse CouchApps in the local CouchDB installed with
+<a class="reference external" href="http://freedesktop.org/wiki/Specifications/desktopcouch">desktopcouch</a>,
+so users of linux distributions where desktopcouch has been ported
+won&#8217;t have to install another CouchDB to test and will be able to pair
+it with other desktop.</p>
+<div class="section" id="how-it-works">
+<h2>How it works?<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<p>To push to your local couchdb installed with desktopcouch:</p>
+<div class="highlight-python"><div class="highlight"><pre>couchapp push desktopcouch://testdb
+</pre></div>
+</div>
+<p>To clone:</p>
+<div class="highlight-python"><div class="highlight"><pre>couchapp clone desktopcouch://testdb/_design/test test1
+</pre></div>
+</div>
+<p>To browse and use your application:</p>
+<div class="highlight-python"><div class="highlight"><pre>couchapp browse . desktopcouch://mydb
+</pre></div>
+</div>
+<p>and with push option :</p>
+<div class="highlight-python"><div class="highlight"><pre>couchapp push --browse . desktopcouch://mydb
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -65,7 +71,15 @@ protocols but uses the built-in storage of HTML5.</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CouchApps and DesktopCouch</a><ul>
+<li><a class="reference internal" href="#how-it-works">How it works?</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
@@ -75,7 +89,7 @@ protocols but uses the built-in storage of HTML5.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/couchapp-org/intro/index.txt"
+      <li><a href="../../_sources/couchapp-org/user/desktopcouch.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -104,7 +118,7 @@ protocols but uses the built-in storage of HTML5.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="../../_sources/couchapp-org/intro/index.txt"
+      <a href="../../_sources/couchapp-org/user/desktopcouch.txt"
           rel="nofollow">Page source</a>
     </div>
 

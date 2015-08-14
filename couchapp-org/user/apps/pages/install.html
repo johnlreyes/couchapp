@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Install Pages &mdash; CouchApp 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="CouchApp 1.0.1 documentation" href="../../../../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="install-pages">
+<span id="page-install"></span><h1>Install Pages<a class="headerlink" href="#install-pages" title="Permalink to this headline">¶</a></h1>
+<p>If anyone else has issues understanding this whole vhosts thing i&#8217;ll
+give a <em>grandma-can-do-it</em> recount here of my troubles.</p>
+<p>If you want to set up <em>pages</em> on your machine and you are not very
+familiar with what&#8217;s what, here it goes:</p>
+<p>Get pages from github: <a class="reference external" href="http://github.com/couchone/pages">http://github.com/couchone/pages</a></p>
+<p>Navigate to your fav directory and do this in the terminal:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone git://github.com/couchone/pages.git
+</pre></div>
+</div>
+<p>Make sure to install couchapp python helper app, i won&#8217;t go into the
+details, <a class="reference external" href="http://wiki.github.com/couchapp/couchapp/manual-2">the github instructions are
+great</a></p>
+<p>Hope you have couchdbx installed on osx or the equivalent on your
+favourite dev/production platform</p>
+<p>Do this from inside your pages directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>couchapp init
+couchapp push . http://localhost:5984/pages
+</pre></div>
+</div>
+<p>That will get you the app into your db, nothing new here, the git hub
+instructions will tell you the same thing, what got me (besides a bad
+commit ;)) is the instruction on
+<a class="reference external" href="http://blog.couch.io/post/443028592/whats-new-in-apache-couchdb-0-11-part-one-nice-urls">http://blog.couch.io/post/443028592/whats-new-in-apache-couchdb-0-11-part-one-nice-urls</a></p>
+<p>The section about vhosts is a bit ambiguous for those that aren&#8217;t in the
+know...</p>
+<p>The instructions there are as follows:</p>
+<p>&#8220;Each HTTP 1.1 request includes a mandatory header field Host:
+hostname.com with the server name it is trying to reach. You can tell
+CouchDB to look for that Host header and redirect all requests that
+match to any URL inside CouchDB by adding this to your configuration
+file local.ini:</p>
+<div class="highlight-python"><div class="highlight"><pre>[vhosts]
+couch.io = /couchio/_design/app/_rewrite&quot;
+</pre></div>
+</div>
+<p>Well, what the hell is local.ini?</p>
+<p>Who knows, who cares, go to your couchdb app and navigate to the
+<em>configuration</em> section.</p>
+<p>Go to the bottom of the page and &#8220;Add new section&#8221;</p>
+<p>Type into the 3 fields that popup:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">vhosts</span></code></li>
+<li><code class="docutils literal"><span class="pre">your-pages-site-name:5984</span></code></li>
+<li><code class="docutils literal"><span class="pre">/pages/_design/pages/_rewrite</span></code></li>
+</ul>
+<p>Now go to the terminal and type:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">textmate</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">hosts</span>
+</pre></div>
+</div>
+<p>(Notice i&#8217;m making assumptions here, basically, get to the hosts file
+and open it...)</p>
+<p>Add:</p>
+<div class="highlight-python"><div class="highlight"><pre>127.0.0.1 your-pages-site-name
+</pre></div>
+</div>
+<p>Save, go to a browser type:</p>
+<div class="highlight-python"><div class="highlight"><pre>your-pages-site-name:5984
+</pre></div>
+</div>
+<p>Hopefully that worked out OK for you.</p>
+<p>See ya!</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../_sources/couchapp-org/user/apps/pages/install.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Benoit Chesneau.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../../../../_sources/couchapp-org/user/apps/pages/install.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

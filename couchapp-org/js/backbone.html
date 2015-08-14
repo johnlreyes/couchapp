@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; CouchApp 1.0.1 documentation</title>
+    <title>Using backbone.js with CouchApp &mdash; CouchApp 1.0.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -37,26 +37,22 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="introduction">
-<span id="intro"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>CouchApps are JavaScript and HTML5 applications served directly from CouchDB.
-If you can fit your application into those constraints,
-then you get CouchDB&#8217;s scalability and flexibility <strong>for free</strong>
-(and deploying your app is as simple as replicating it to the production server).</p>
-<p>There are also tools for deploying browser-based
-apps to JSON web servers and <a class="reference external" href="http://pouchdb.com/">PouchDB</a>
-is the future of browser based sync apps. It can sync with the same sync
-protocols but uses the built-in storage of HTML5.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="what-is-couchapp.html">What is CouchApp?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="what-is-couchapp.html#the-basics">The Basics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="what-is-couchapp.html#couchdb-s-built-in-programming-model">CouchDB&#8217;s built-in programming model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="what-is-couchapp.html#hello-world">Hello World</a></li>
-<li class="toctree-l2"><a class="reference internal" href="what-is-couchapp.html#make-it-easy-it-with-the-couchapp-toolchain">Make it easy it with the CouchApp toolchain</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="using-backbone-js-with-couchapp">
+<h1>Using backbone.js with CouchApp<a class="headerlink" href="#using-backbone-js-with-couchapp" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://backbonejs.org/">Backbone.js</a> is minimalist mvc framework for JavaScript, written by
+Jeremy Ashkenas, the author of coffee script. Backbone is a good choice
+for creating larger CouchApps, as an alternative to Evently. A robust
+backbone-couchdb connector that supports realtime updates via the
+<cite>_changes</cite> feed is supported by Jan Monschke.</p>
+<p>See this
+<a class="reference external" href="http://janmonschke.posterous.com/backbone-couchdb-give-your-couchapp-some-back">introduction</a>
+to CouchApp with <a class="reference external" href="http://backbonejs.org/">backbone.js</a> by Jan.</p>
+<p>Extended version of <a class="reference external" href="http://backbonejs.org/">backbone</a> couch connector (with fixing some
+issues, extending functionality) is available here:</p>
+<p><a class="reference external" href="https://github.com/andrzejsliwa/backbone-couch">https://github.com/andrzejsliwa/backbone-couch</a></p>
+<div class="section" id="an-example-use-case">
+<h2>An example use case<a class="headerlink" href="#an-example-use-case" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/andrzejsliwa/couch-watch">https://github.com/andrzejsliwa/couch-watch</a></p>
 </div>
 </div>
 
@@ -65,7 +61,15 @@ protocols but uses the built-in storage of HTML5.</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using backbone.js with CouchApp</a><ul>
+<li><a class="reference internal" href="#an-example-use-case">An example use case</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
@@ -75,7 +79,7 @@ protocols but uses the built-in storage of HTML5.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../../_sources/couchapp-org/intro/index.txt"
+      <li><a href="../../_sources/couchapp-org/js/backbone.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -104,7 +108,7 @@ protocols but uses the built-in storage of HTML5.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="../../_sources/couchapp-org/intro/index.txt"
+      <a href="../../_sources/couchapp-org/js/backbone.txt"
           rel="nofollow">Page source</a>
     </div>
 

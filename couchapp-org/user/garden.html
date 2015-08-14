@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Garden &mdash; CouchApp 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="CouchApp 1.0.1 documentation" href="../../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-garden">
+<h1>The Garden<a class="headerlink" href="#the-garden" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The database of garden was gone.</p>
+</div>
+<p><a class="reference external" href="http://couchapp.org/garden/_design/garden/index.html">The CouchApp
+Garden</a> is a
+CouchApp designed to make sharing other CouchApps easy. Once you have
+the Garden installed on your CouchDB, you can use it to install other
+CouchApps.</p>
+<p>Note - links to couchapp.org here offline as of last edit.</p>
+<div class="section" id="the-basics">
+<h2>The basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
+<p>Currently, the Garden needs a lot of work, but the basic ideas are
+there. Essentially, it can copy design documents from your other
+databases, into the Garden database. As it copies them, it renames them
+so that they don&#8217;t have ids that start with <code class="docutils literal"><span class="pre">_design</span></code>. This means they
+can be replicated around without the replicator having to run with admin
+privileges. Also, the apps don&#8217;t run code when they are just sitting in
+the Garden.</p>
+<p>Once you have a local Garden database, you can install apps from it,
+into databases on your CouchDB. The garden document will be copied to
+the target database, as a design document again, and there will be a
+link to visit that application.</p>
+</div>
+<div class="section" id="sharing-your-app">
+<h2>Sharing your app<a class="headerlink" href="#sharing-your-app" title="Permalink to this headline">¶</a></h2>
+<p>To add your app to the Garden, install the Garden locally, and use its
+import link, to add the app to your local garden database. Then
+replicate that database to <a class="reference external" href="http://couchapp.org/garden">http://couchapp.org/garden</a>, and check out the
+updated
+<a class="reference external" href="http://couchapp.org/garden/_design/garden/index.html">Garden</a>.</p>
+</div>
+<div class="section" id="contributing-to-the-garden">
+<h2>Contributing to the Garden<a class="headerlink" href="#contributing-to-the-garden" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://github.com/jchris/garden">The Garden code is on Github</a>,
+please fork and contribute.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Garden</a><ul>
+<li><a class="reference internal" href="#the-basics">The basics</a></li>
+<li><a class="reference internal" href="#sharing-your-app">Sharing your app</a></li>
+<li><a class="reference internal" href="#contributing-to-the-garden">Contributing to the Garden</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/couchapp-org/user/garden.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Benoit Chesneau.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../../_sources/couchapp-org/user/garden.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

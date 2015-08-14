@@ -15,4 +15,6 @@ protocols but uses the built-in storage of HTML5.
 
 
 .. toctree::
+    :maxdepth: 2
+
     what-is-couchapp

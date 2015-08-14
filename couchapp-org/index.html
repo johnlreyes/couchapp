@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>CouchApp: Web application hosted in Apache CouchDB &mdash; CouchApp 1.0.1 documentation</title>
+    <title>CouchApp: Web Application Hosted in Apache CouchDB &mdash; CouchApp 1.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -38,197 +38,188 @@
           <div class="body" role="main">
             
   <div class="section" id="couchapp-web-application-hosted-in-apache-couchdb">
-<h1>CouchApp: Web application hosted in Apache CouchDB<a class="headerlink" href="#couchapp-web-application-hosted-in-apache-couchdb" title="Permalink to this headline">¶</a></h1>
+<h1>CouchApp: Web Application Hosted in Apache CouchDB<a class="headerlink" href="#couchapp-web-application-hosted-in-apache-couchdb" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This documentation is working in progress</p>
+<p class="last">This documentation is a work in progress.</p>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>We will introduce the main concepts of CouchApp here.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro/what-is-couchapp.html">What is CouchApp?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro/what-is-couchapp.html#the-basics">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/what-is-couchapp.html#couchdb-s-built-in-programming-model">CouchDB&#8217;s built-in programming model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/what-is-couchapp.html#hello-world">Hello World</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/what-is-couchapp.html#make-it-easy-it-with-the-couchapp-toolchain">Make it easy it with the CouchApp toolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="intro/dev-tools.html">CouchApp Development Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro/dev-tools.html#curl">cURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/dev-tools.html#id1">CouchApp command line tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/dev-tools.html#node-couchapp-js">node.couchapp.js</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/dev-tools.html#erica">erica</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/dev-tools.html#kanso">Kanso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/dev-tools.html#soca">soca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro/dev-tools.html#reupholster">Reupholster</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s get started with the <code class="docutils literal"><span class="pre">couchapp.py</span></code> command line tools.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro/what-is-couchapp.html">What is CouchApp?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backbone.html">Using backbone.js with CouchApp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="couchapp/install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/install.html#installing-on-all-unixs">Installing on all UNIXs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/install.html#installing-in-a-sandboxed-environnement">Installing in a sandboxed environnement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/install.html#installing-on-mac-os-x">Installing on Mac OS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/install.html#installing-on-ubuntu">Installing on Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/install.html#installing-on-windows">Installing on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="couchapp/gettingstarted.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/gettingstarted.html#generate-your-application">Generate your application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/gettingstarted.html#create-a-show-function">Create a show function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/gettingstarted.html#push-your-couchapp">Push your CouchApp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/gettingstarted.html#clone-your-couchapp">Clone your CouchApp</a></li>
+</ul>
+</li>
 </ul>
 </div>
-<div class="section" id="external-resources">
-<h3>External Resources<a class="headerlink" href="#external-resources" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
+<ul>
+<li><p class="first">External Resources</p>
+<blockquote>
+<div><ul class="simple">
 <li>The <a class="reference external" href="http://guide.couchdb.org/draft/standalone.html">Standalone Applications</a>
 and <a class="reference external" href="http://guide.couchdb.org/draft/managing.html">Managing Design Documents</a>
 chapters of the O&#8217;Reilly CouchDB book</li>
 </ul>
-</div>
-</div>
-<div class="section" id="couchapp-development-tools">
-<h2>CouchApp Development Tools<a class="headerlink" href="#couchapp-development-tools" title="Permalink to this headline">¶</a></h2>
-<p>To develop a CouchApp, you will need a way to get your javascript,
-html and other resources onto your CouchDB instance.
-Typically this is done with a CouchApp command line tool
-that maps application assets and CouchDB views, lists, shows,
-etc into one or more Design Documents.</p>
-<ul class="simple">
-<li><a class="reference external" href="filesystem-mapping.html">CouchApp Filesystem Mapping</a> - <code class="docutils literal"><span class="pre">couchapp.py</span></code>
-and <a class="reference external" href="https://github.com/benoitc/erica">erica</a> (mentioned below) implement a consistent
-filesystem-to-design-document mapping</li>
-</ul>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The original CouchApp command line tools were created in 2008 / 2009 by
-&#64;benoitc and &#64;jchris. They still work, and have been feature complete
-for a long time. <code class="docutils literal"><span class="pre">couchapp</span></code> has been replaced and is compatible with the
-old <code class="docutils literal"><span class="pre">couchapp</span></code> tool.</p>
-</div>
-<div class="section" id="curl">
-<h3>cURL<a class="headerlink" href="#curl" title="Permalink to this headline">¶</a></h3>
-<p>The simplest way to develop a couchapp would be to use <code class="docutils literal"><span class="pre">curl</span></code> from the
-command line.</p>
-</div>
-<div class="section" id="id1">
-<h3><a class="reference external" href="couchapp-python.html">CouchApp command line tool</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>The <a class="reference external" href="couchapp-python.html">CouchApp command line tool</a> is used to
-generate code templates in your application and to push your changes to
-an instance of CouchDB, among other things. Here is how to get started
-with the CouchApp command line tool:</p>
-<ul class="simple">
-<li><a class="reference external" href="installing.html">Installing couchapp</a></li>
-<li><a class="reference external" href="couchapp-config.html">Couchapp configuration</a></li>
-<li><a class="reference external" href="couchapp-usage.html">The couchapp command line tool</a></li>
-<li><a class="reference external" href="couchapp-extend.html">Extending the couchapp command line tool</a></li>
-<li><a class="reference external" href="multiple-design-docs.html">Using couchapp with multiple design
-documents</a></li>
-</ul>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There can be confusion with the term <em>CouchApp</em> because it can refer to
-this tool, named <em>CouchApp</em>, or a general application served from
-CouchDB. This is probably due to the fact that the CouchApp command line
-tool, as known as <code class="docutils literal"><span class="pre">couchapp.py</span></code> , was the first full way of developing a
-CouchApp.</p>
-</div>
-</div>
-<div class="section" id="node-couchapp-js">
-<h3><a class="reference external" href="https://github.com/mikeal/node.couchapp.js">node.couchapp.js</a><a class="headerlink" href="#node-couchapp-js" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><a class="reference external" href="http://japhr.blogspot.com/2010/04/quick-intro-to-nodecouchappjs.html">http://japhr.blogspot.com/2010/04/quick-intro-to-nodecouchappjs.html</a></li>
-</ul>
-<p>This is an alternative tooling to the Python couchapp utility that is
-instead written in Node.js. It uses a much simpler folder structure than
-it&#8217;s Python counterpart and is a generally more minimalist/simplified
-way of writing couchapps. Note that you cannot use Python couchapp to
-push couchapps written using <a class="reference external" href="https://github.com/mikeal/node.couchapp.js">node.couchapp.js</a> into CouchDB and vice versa.</p>
-</div>
-<div class="section" id="erica">
-<h3><a class="reference external" href="https://github.com/benoitc/erica">erica</a><a class="headerlink" href="#erica" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://github.com/benoitc/erica">erica</a> is an Erlang-based command line tool that is compatible with
-the Python and Node.js CouchApp tools.</p>
-</div>
-<div class="section" id="kanso">
-<h3><a class="reference external" href="http://kan.so/">Kanso</a><a class="headerlink" href="#kanso" title="Permalink to this headline">¶</a></h3>
-<p>A comprehensive, framework-agnostic build tool for CouchApps.</p>
-<p>The <a class="reference external" href="http://kan.so/">Kanso</a> command line tool can build projects designed for
-node.couchapp.js, or even the Python couchapp tool, while providing many
-other options for building your app. These build steps and other code
-can be shared using the online <a class="reference external" href="http://kan.so/packages">package
-repository</a>. Compiling coffee-script, <code class="docutils literal"><span class="pre">.less</span></code>
-CSS templates etc. is as easy as including the relevant package.</p>
-<div class="section" id="npm-for-couchapps">
-<h4>NPM for CouchApps<a class="headerlink" href="#npm-for-couchapps" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="http://kan.so/">Kanso</a> also lets you merge design docs together, which allows reusable
-components built with any of the available couchapp tools. The <a class="reference external" href="http://kan.so/">Kanso</a>
-tool can help you manage dependencies and share code between projects,
-as well as providing a library of JavaScript modules for use with
-CouchDB.</p>
-</div>
-</div>
-<div class="section" id="soca">
-<h3><a class="reference external" href="https://github.com/quirkey/soca">soca</a><a class="headerlink" href="#soca" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://github.com/quirkey/soca">soca</a> is a command line tool written in ruby for building and pushing
-couchapps. It is similar to the canonical couchapp python tool, with a
-number of key differences:</p>
-<ul class="simple">
-<li>local directories do not have to map 1-1 to the design docs directory</li>
-<li>lifecycle management &amp; deployment hooks for easily adding or
-modifying the design document with ruby tools or plugins.</li>
-<li>architected around using Sammy.js, instead of Evently, which is
-bundled with the python tool. Sammy.js is a Sinatra inspired
-browser-side RESTframework which is used by default.</li>
-</ul>
-<p>Unlike a traditional couchapp, a <a class="reference external" href="https://github.com/quirkey/soca">soca</a> couchapp is one way - your source
-directory structure is actually &#8216;compiled&#8217; into into the couchapp
-<code class="docutils literal"><span class="pre">_design</span></code> document format.</p>
-<p>Compile time plugins:</p>
-<ul class="simple">
-<li>Compass</li>
-<li>CoffeeScript</li>
-<li>Mustache</li>
-<li>JavaScript bundling for CouchDB and the browser</li>
+</div></blockquote>
+</li>
 </ul>
 </div>
-<div class="section" id="reupholster">
-<h3><a class="reference external" href="http://reupholster.iriscouch.com/reupholster/_design/app/index.html">Reupholster</a><a class="headerlink" href="#reupholster" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="http://reupholster.iriscouch.com/reupholster/_design/app/index.html">Reupholster</a> is geared for CouchApp beginners and simple CouchApps.
-What <a class="reference external" href="http://reupholster.iriscouch.com/reupholster/_design/app/index.html">Reupholster</a> does is allows you to experience writing a CouchApp as fast
-as possible, with very little learning curve. It just feels like you are
-editing a normal web project.</p>
-</div>
-</div>
-<div class="section" id="javascript-application-programming">
-<h2>JavaScript Application Programming<a class="headerlink" href="#javascript-application-programming" title="Permalink to this headline">¶</a></h2>
-<p>All application logic in a couchapp is provided by JavaScript.
-There is a library called <a class="reference external" href="https://github.com/apache/couchdb/blob/trunk/share/www/script/jquery.couch.js">jquery.couch.js</a> that is distributed
-with every CouchDB installation.
-Here is the <a class="reference external" href="http://daleharvey.github.com/jquery.couch.js-docs/symbols/index.html">documentation for jquery.couch.js</a></p>
-<div class="section" id="example-applications">
-<h3>Example Applications<a class="headerlink" href="#example-applications" title="Permalink to this headline">¶</a></h3>
-<p>You can download the following applications and try them out yourself.</p>
-<div class="section" id="id8">
-<h4><a class="reference external" href="https://github.com/couchone/pages">Pages</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
-<p>The wiki software behind couchapp.org(old site)</p>
-<ul class="simple">
-<li><a class="reference external" href="pages-install.html">Installing Pages</a></li>
-<li><a class="reference external" href="NotesOnPagesFiles.html">Pages Application Walkthrough</a></li>
+<div class="section" id="user-guide">
+<h2>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="couchapp/index.html">CouchApp Command Line Tool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/usage.html">Command Line Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="couchapp/extends.html">Extend couchapp</a></li>
 </ul>
-<p>A couchapp for keeping teams on the same page</p>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="js/index.html">JavaScript Application Programming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="js/backbone.html">Using backbone.js with CouchApp</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user/garden.html">The Garden</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/garden.html#the-basics">The basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/garden.html#sharing-your-app">Sharing your app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/garden.html#contributing-to-the-garden">Contributing to the Garden</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user/desktopcouch.html">CouchApps and DesktopCouch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/desktopcouch.html#how-it-works">How it works?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user/list-of-couchapps.html">List of CouchApps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#afghan-war-diary">Afghan War Diary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#blueink">BlueInk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#bookkeeping">Bookkeeping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#boom-amazing">Boom Amazing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#brunch-colors">Brunch-Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#costco">Costco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#couchcrawler">CouchCrawler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#couchwatch">CouchWatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#couchdb-contact-form">CouchDB Contact Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#couchdb-projector">CouchDB Projector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#couchlog">CouchLog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#csv2couchdb">csv2couchdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#dimensional-drawing">Dimensional Drawing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#focus">Focus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#food-cart-pages">Food Cart Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#hejhej">HejHej</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#hub-list">Hub List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#li-couch">Li.Couch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#mapchat">MapChat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#modern-forum">Modern Forum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#monocles-ex-couchappspora">Monocles (ex-CouchAppSpora)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#mtg-pricing-couchapp">MTG Pricing CouchApp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#mytweets">Mytweets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#nymphormation">Nymphormation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#pages">Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#processing-js-studio">Processing JS Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#proto">Proto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#random-lecture">Random Lecture!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#sales-stats">Sales Stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#skim-simple-knowledgebase-for-insightful-metabolomics">Skim - Simple knowledgebase for insightful metabolomics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#sleepcam">Sleepcam</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#sofa">Sofa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#snippets">Snippets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#swinger">Swinger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#tapirwiki">TapirWiki</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#taskr">Taskr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#the-infinite-maze">The Infinite Maze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#toast">Toast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#tweet-eater">Tweet Eater</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user/list-of-couchapps.html#hckr-it">hckr.it</a></li>
+</ul>
+</li>
+</ul>
 </div>
-<div class="section" id="sofa">
-<h4><a class="reference external" href="https://github.com/jchris/sofa">Sofa</a><a class="headerlink" href="#sofa" title="Permalink to this headline">¶</a></h4>
-<p>Standalone CouchDB Blog, used by the O&#8217;Reilly CouchDB book.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><a class="reference external" href="https://github.com/jchris/sofa">Sofa</a> does not work as well with couchdb 1.0.1 or 1.0.2, the edit and create
-new pages do not work. Also, there is a different version of mustache.js
-in the <code class="docutils literal"><span class="pre">/design_doc/lib</span></code> directory that is used to render all the
-<code class="docutils literal"><span class="pre">_list</span></code> functions. The normal mustache.js file is in the vendor/couchapp
-directory. )</p>
+</div>
+<div class="section" id="design">
+<h2>Design<a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h2>
+<p>The following documentation tell you how <code class="docutils literal"><span class="pre">couchapp.py</span></code> works.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="design/filesystem-mapping.html">The CouchApp Filesystem Mapping</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design/filesystem-mapping.html#complete-filesystem-to-design-doc-mapping-example">Complete Filesystem-to-Design Doc Mapping Example</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
-<div class="section" id="id10">
-<h4><a class="reference external" href="https://github.com/doppler/TweetEater">TweetEater</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
-<p>A Couchapp which displays tweets harvested from Twitter&#8217;s streaming API
-by an accompanying Ruby program.</p>
+<div class="section" id="contributing-to-couchapp-ecosystem">
+<h2>Contributing to CouchApp Ecosystem<a class="headerlink" href="#contributing-to-couchapp-ecosystem" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev/how-to-contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/roadmap.html">Roadmap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/roadmap.html#developer-toolchain">Developer Toolchain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/roadmap.html#javascript-libraries">JavaScript Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev/roadmap.html#rfc-please-comment">RFC: Please Comment</a></li>
+</ul>
+</li>
+</ul>
 </div>
-</div>
-</div>
-<div class="section" id="more-examples">
-<h2>More Examples<a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
-<p>Please check out the <a class="reference external" href="list-of-couchapps.html">List of CouchApps</a>.</p>
 </div>
 <div class="section" id="other-resources">
-<h2>Other resources<a class="headerlink" href="#other-resources" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><a class="reference external" href="http://archive.couchdb.org/">Search The CouchDB Mailing List/IRC
-Archive</a></li>
-<li><a class="reference external" href="desktopcouch.html">CouchApps with DesktopCouch</a></li>
-<li><a class="reference external" href="roadmap.html">Roadmap</a></li>
-<li><a class="reference external" href="http://groups.google.com/group/couchapp">Mailing List</a></li>
-<li><a class="reference external" href="how-to-contribute.html">Contributing to CouchApp</a></li>
-<li><a class="reference external" href="development-notes.html">Some development notes</a></li>
-<li><a class="reference external" href="garden.html">The CouchApp Garden project</a></li>
-<li><a class="reference external" href="http://materials.geoinfo.tuwien.ac.at/tutorials/couchapp">eNotes CouchApp
-Tutorial</a></li>
-<li>#couchapp at freenode</li>
+<h2>Other Resources<a class="headerlink" href="#other-resources" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">IRC</p>
+<blockquote>
+<div><ul class="simple">
+<li>#couchdb</li>
+<li>#couchapp</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="http://archive.couchdb.org/">Search The CouchDB Mailing List/IRC
+Archive</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="http://groups.google.com/group/couchapp">Mailing List</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="desktopcouch.html">CouchApps with DesktopCouch</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="http://materials.geoinfo.tuwien.ac.at/tutorials/couchapp">eNotes CouchApp Tutorial</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -241,35 +232,13 @@ Tutorial</a></li>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">CouchApp: Web application hosted in Apache CouchDB</a><ul>
-<li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
-<li><a class="reference internal" href="#external-resources">External Resources</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#couchapp-development-tools">CouchApp Development Tools</a><ul>
-<li><a class="reference internal" href="#curl">cURL</a></li>
-<li><a class="reference internal" href="#id1">CouchApp command line tool</a></li>
-<li><a class="reference internal" href="#node-couchapp-js">node.couchapp.js</a></li>
-<li><a class="reference internal" href="#erica">erica</a></li>
-<li><a class="reference internal" href="#kanso">Kanso</a><ul>
-<li><a class="reference internal" href="#npm-for-couchapps">NPM for CouchApps</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#soca">soca</a></li>
-<li><a class="reference internal" href="#reupholster">Reupholster</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#javascript-application-programming">JavaScript Application Programming</a><ul>
-<li><a class="reference internal" href="#example-applications">Example Applications</a><ul>
-<li><a class="reference internal" href="#id8">Pages</a></li>
-<li><a class="reference internal" href="#sofa">Sofa</a></li>
-<li><a class="reference internal" href="#id10">TweetEater</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-examples">More Examples</a></li>
-<li><a class="reference internal" href="#other-resources">Other resources</a></li>
+<li><a class="reference internal" href="#">CouchApp: Web Application Hosted in Apache CouchDB</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#user-guide">User Guide</a></li>
+<li><a class="reference internal" href="#design">Design</a></li>
+<li><a class="reference internal" href="#contributing-to-couchapp-ecosystem">Contributing to CouchApp Ecosystem</a></li>
+<li><a class="reference internal" href="#other-resources">Other Resources</a></li>
 </ul>
 </li>
 </ul>
