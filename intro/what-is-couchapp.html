@@ -55,9 +55,9 @@ way. The first section of this article will address these tradeoffs.</p>
 database-backed web application, you had to have an architecture that
 looked like a layer cake:</p>
 <div class="highlight-python"><div class="highlight"><pre>Browser (UI and links between pages)
--------------- HTTP ---------------
+------------------------ HTTP -------------------------
 Application server (business logic, templates, etc)
---------- custom binary -----------
+------------------- custom binary ---------------------
 Persistence: MySQL, PostgreSQL, Oracle
 </pre></div>
 </div>
@@ -81,7 +81,7 @@ grain</em> of CouchDB&#8217;s APIs, then you can piggyback on all the work
 people have done to scale.</p>
 <p>The fact is, 2-layer applications are simpler:</p>
 <div class="highlight-python"><div class="highlight"><pre>Browser (UI and links between pages)
--------------- HTTP ---------------
+------------------------ HTTP -------------------------
 CouchDB (persistence, business logic, and templating)
 </pre></div>
 </div>
@@ -91,7 +91,7 @@ the traditional application server stack &#8220;extra code to make CouchDB
 uglier and slower.&#8221;</p>
 <p>Aside from simplicity and the scalability that comes with it, there is
 another major benefit to creating a 100% pure CouchApp:
-<a class="reference external" href="http://wiki.apache.org/couchdb/Replication">Replication.</a>. When your
+<a class="reference external" href="http://wiki.apache.org/couchdb/Replication">Replication</a>. When your
 app is hosted by just a CouchDB, that means it can be run from <em>any</em>
 CouchDB, with no need to set up complex server-side dependencies. When
 your app can run on <em>any</em> CouchDB, you are free to take advantage of
@@ -159,13 +159,11 @@ pick from them a set of keys under which you&#8217;d like to locate them.</p>
 <code class="docutils literal"><span class="pre">[tag,</span> <span class="pre">doc.created_at]</span></code>. Once you have a view like that, you can
 easily get a view of all your blog posts with a given tag, in
 chronological order, no less. By adding the reduce operator <code class="docutils literal"><span class="pre">_count</span></code>
-you can also see how many blog posts are tagged <code class="docutils literal"><span class="pre">&quot;foo&quot;</span></code> or whatever.</p>
+you can also see how many blog posts are tagged <code class="docutils literal"><span class="pre">foo</span></code> or whatever.</p>
 <p>I&#8217;m not gonna try to teach you all about views here. Try the <a class="reference external" href="http://books.couchdb.org/relax/design-documents/views">CouchDB
-book&#8217;s guide to
-views</a>, the
-<a class="reference external" href="http://wiki.apache.org/couchdb/HTTP_view_API">wiki</a> and this
-<a class="reference external" href="http://books.couchdb.org/relax/reference/views-for-sql-jockeys">chapter on advanced
-views</a>.</p>
+book&#8217;s guide to views</a>
+, the <a class="reference external" href="http://wiki.apache.org/couchdb/HTTP_view_API">wiki</a> and this
+<a class="reference external" href="http://books.couchdb.org/relax/reference/views-for-sql-jockeys">chapter on advanced views</a>.</p>
 </div>
 <div class="section" id="server-side-validations">
 <h3>Server Side Validations<a class="headerlink" href="#server-side-validations" title="Permalink to this headline">¶</a></h3>
@@ -405,9 +403,8 @@ that.)</p>
 </div>
 <div class="section" id="evently">
 <h4>Evently<a class="headerlink" href="#evently" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="http://github.com/couchapp/couchapp/blob/master/vendor/_attachments/jquery.evently.js">Evently</a>
-is a convenience library I wrote for myself. Essentially it does two
-things: One is it allows you to write complex jQuery code in a
+<p>Evently is a convenience library I wrote for myself. Essentially it does
+two things: One is it allows you to write complex jQuery code in a
 declarative fashion. This makes code reuse easier, by avoiding the
 tangled web of dependencies you often see in deeply nested jQuery code.
 The other is that Evently knows a bunch of CouchDB tricks, so you can
