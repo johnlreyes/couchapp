@@ -25,8 +25,9 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="CouchApp 1.0.1 documentation" href="../index.html" />
+    <link rel="up" title="Introduction" href="index.html" />
     <link rel="next" title="CouchApp Development Tools" href="dev-tools.html" />
-    <link rel="prev" title="CouchApp: Web Application Hosted in Apache CouchDB" href="../index.html" />
+    <link rel="prev" title="Introduction" href="index.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -274,38 +275,38 @@ at localhost. If you don&#8217;t, install one now (or signup for hosting at
 <a class="reference external" href="http://www.iriscouch.com/">Iris Couch</a> or
 <a class="reference external" href="http://cloudant.com/">Cloudant</a>).</p>
 <p>Quick, create a file called index.html, and put this in it:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;&lt;title&gt;Tiny CouchApp&lt;/title&gt;&lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Tiny CouchApp&lt;/h1&gt;
-    &lt;ul id=&quot;databases&quot;&gt;&lt;/ul&gt;
-  &lt;/body&gt;
-  &lt;script src=&quot;/_utils/script/jquery.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;/_utils/script/jquery.couch.js&quot;&gt;&lt;/script&gt;
-  &lt;script&gt;
-    $.couch.allDbs({
-      success : function(dbs) {
-        dbs.forEach(function(db) {
-          $(&quot;#databases&quot;).append(&#39;&lt;li&gt;&lt;a href=&quot;/_utils/database.html?&#39;+db+&#39;&quot;&gt;&#39;+db+&#39;&lt;/a&gt;&lt;/li&gt;&#39;);
-        });
-      }
-    });
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;&lt;title&gt;</span>Tiny CouchApp<span class="nt">&lt;/title&gt;&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Tiny CouchApp<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;databases&quot;</span><span class="nt">&gt;&lt;/ul&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/_utils/script/jquery.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/_utils/script/jquery.couch.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;script&gt;</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">couch</span><span class="p">.</span><span class="nx">allDbs</span><span class="p">({</span>
+      <span class="nx">success</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dbs</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">dbs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#databases&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;li&gt;&lt;a href=&quot;/_utils/database.html?&#39;</span><span class="o">+</span><span class="nx">db</span><span class="o">+</span><span class="s1">&#39;&quot;&gt;&#39;</span><span class="o">+</span><span class="nx">db</span><span class="o">+</span><span class="s1">&#39;&lt;/a&gt;&lt;/li&gt;&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
 
-  &lt;/script&gt;
-&lt;/html&gt;
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
 </pre></div>
 </div>
 <p>Now browse to your CouchDB&#8217;s Futon at <a class="reference external" href="http://localhost:5984/_utils">http://localhost:5984/_utils</a> and
-create a database called &#8220;whatever&#8221;. Now visit that database, and create
-a document. You will be creating what is known as a, &#8220;Design Document&#8221;,
-which is a special kind of document in CouchDb that contains application
+create a database called <code class="docutils literal"><span class="pre">whatever</span></code>. Now visit that database, and create
+a document. You will be creating what is known as a, <code class="docutils literal"><span class="pre">Design</span> <span class="pre">Document</span></code>,
+which is a special kind of document in CouchDB that contains application
 code. The only thing you need to know now is to set the document id to
-something that begins with &#8220;_design/&#8221; and save it. Now click the button
-labeled &#8220;Upload Attachment&#8221; and choose the index.html file you just
-created, and upload it. Now click the link in Futon for index.html, and
+something that begins with <code class="docutils literal"><span class="pre">_design/</span></code> and save it. Now click the button
+labeled <em>Upload Attachment</em> and choose the <code class="docutils literal"><span class="pre">index.html</span></code> file you just
+created, and upload it. Now click the link in Futon for <code class="docutils literal"><span class="pre">index.html</span></code>, and
 you should see a list of the databases on that CouchDB instance.</p>
-<p>(rengel, 2012-09-05: Because of the »Same Origin« policy the index.html
+<p>(rengel, 2012-09-05: Because of the <em>Same Origin</em> policy the <code class="docutils literal"><span class="pre">index.html</span></code>
 file has to be in the same directory, or a subdirectory thereof, as your
 whatever database.)</p>
 <p>You gotta admit there was nothing to that.</p>
@@ -339,12 +340,12 @@ pretty agressively, it just got some <a class="reference external" href="http://
 today.</a></p>
 <p>So let&#8217;s use it!</p>
 <div class="section" id="installing-couchapp">
-<h3>Installing CouchApp<a class="headerlink" href="#installing-couchapp" title="Permalink to this headline">¶</a></h3>
+<h3>Installing couchapp<a class="headerlink" href="#installing-couchapp" title="Permalink to this headline">¶</a></h3>
 <p>There is a lot of documentation already out there about how to install
 the CouchApp toolchain. I&#8217;ll just link to it. The basic installation
 instructions are <a class="reference external" href="http://github.com/couchapp/couchapp">in the README</a>
 and in <a class="reference external" href="http://books.couchdb.org/relax/example-app/design-documents">the CouchDB
-Book</a>.</p>
+Book</a></p>
 <p>Here are some hints about <a class="reference external" href="http://wiki.apache.org/couchdb/Quirks_on_Windows">installing on
 Windows.</a></p>
 <p>Once you have CouchApp installed, the basic usage is simple. From within
@@ -402,7 +403,7 @@ object that references it and allows you to require libraries from it.
 that.)</p>
 </div>
 <div class="section" id="evently">
-<h4>Evently<a class="headerlink" href="#evently" title="Permalink to this headline">¶</a></h4>
+<h4><a class="reference external" href="https://github.com/jchris/evently">Evently</a><a class="headerlink" href="#evently" title="Permalink to this headline">¶</a></h4>
 <p>Evently is a convenience library I wrote for myself. Essentially it does
 two things: One is it allows you to write complex jQuery code in a
 declarative fashion. This makes code reuse easier, by avoiding the
@@ -417,15 +418,15 @@ written lots of Evently code all in one file, that I realized I could
 nest the JSON structures into a tree of folders and JavaScript files.</p>
 <p>People think that Evently and the deeply-nested folders and files things
 must go together, but it is just one way of doing things. For more
-<a class="reference external" href="http://couchapp.couchone.com/docs/_design/docs/index.html#/topic/evently">Evently docs, visit this
+<a class="reference external" href="http://couchapp.iriscouch.com/docs/_design/docs/index.html#/topic/evently">Evently docs, visit this
 link</a>.</p>
 </div>
 <div class="section" id="pathbinder">
 <h4>Pathbinder<a class="headerlink" href="#pathbinder" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="http://github.com/couchapp/couchapp/blob/master/vendor/_attachments/jquery.pathbinder.js">Pathbinder</a>
+<p><a class="reference external" href="https://github.com/jchris/couchapp-docs/blob/master/vendor/couchapp/_attachments/jquery.pathbinder.js">Pathbinder</a>
 makes it so you can assign events to be triggered when the hash part of
 the browser URL changes. Evently knows how to use it, so you can
-declaratively link paths and events. <a class="reference external" href="http://couchapp.couchone.com/docs/_design/docs/index.html#/topic/pathbinder">Pathbinder docs are
+declaratively link paths and events. <a class="reference external" href="http://couchapp.iriscouch.com/docs/_design/docs/index.html#/topic/pathbinder">Pathbinder docs are
 here.</a></p>
 </div>
 </div>
@@ -458,7 +459,7 @@ here.</a></p>
 </li>
 <li><a class="reference internal" href="#hello-world">Hello World</a></li>
 <li><a class="reference internal" href="#make-it-easy-it-with-the-couchapp-toolchain">Make it easy it with the CouchApp toolchain</a><ul>
-<li><a class="reference internal" href="#installing-couchapp">Installing CouchApp</a></li>
+<li><a class="reference internal" href="#installing-couchapp">Installing couchapp</a></li>
 <li><a class="reference internal" href="#the-standard-library">The Standard Library</a><ul>
 <li><a class="reference internal" href="#the-jquery-couchdb-client-api">The jQuery CouchDB Client API</a></li>
 <li><a class="reference internal" href="#the-couchapp-code-loader">The CouchApp Code Loader</a></li>
@@ -476,8 +477,10 @@ here.</a></p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../index.html" title="previous chapter">CouchApp: Web Application Hosted in Apache CouchDB</a></li>
+  <li><a href="index.html">Introduction</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Introduction</a></li>
       <li>Next: <a href="dev-tools.html" title="next chapter">CouchApp Development Tools</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
