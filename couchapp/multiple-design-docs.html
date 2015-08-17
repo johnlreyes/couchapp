@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>7. Using CouchApp with Multiple Design Documents &mdash; CouchApp 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="CouchApp 1.0.1 documentation" href="../index.html" />
+    <link rel="up" title="CouchApp Command Line Tool" href="index.html" />
+    <link rel="next" title="JavaScript Application Programming" href="../js/index.html" />
+    <link rel="prev" title="6. Extend couchapp" href="extends.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-couchapp-with-multiple-design-documents">
+<span id="multiple-design-docs"></span><h1>7. Using CouchApp with Multiple Design Documents<a class="headerlink" href="#using-couchapp-with-multiple-design-documents" title="Permalink to this headline">¶</a></h1>
+<p>Here is what I did to use couchapp with multiple design documents.
+I want to setup a project for a new database <code class="docutils literal"><span class="pre">test6</span></code> with a design doc
+called <code class="docutils literal"><span class="pre">design_doc1</span></code>.</p>
+<p>Make sure couchdb and couchapp are installed and that couchdb is
+started.</p>
+<p>First check that <code class="docutils literal"><span class="pre">test6</span></code> doesn&#8217;t exist:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>curl http://127.0.0.1:5984/test6
+<span class="o">{</span><span class="s2">&quot;error&quot;</span>:<span class="s2">&quot;not_found&quot;</span>,<span class="s2">&quot;reason&quot;</span>:<span class="s2">&quot;no_db_file&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+<p>OK. That was expected.</p>
+<p>Generate a new CouchApp:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>couchapp generate test6
+<span class="nv">$ </span><span class="nb">cd </span>test6
+<span class="nv">$ </span>ls
+_attachments   evently  language  shows    vendor
+couchapp.json  _id      lists     updates  views
+</pre></div>
+</div>
+<p>Now edit <code class="docutils literal"><span class="pre">.couchapprc</span></code> as follows so it looks like</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span> <span class="s2">&quot;env&quot;</span><span class="o">:</span>
+    <span class="p">{</span> <span class="s2">&quot;default&quot;</span><span class="o">:</span>
+        <span class="p">{</span>  <span class="s2">&quot;db&quot;</span><span class="o">:</span><span class="s2">&quot;http://127.0.0.1:5984/test6&quot;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It looks like couchapp doesn&#8217;t pick up the default db in what
+follows when I do <code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">push</span></code></p>
+</div>
+<p>Make a directory for design documents:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>mkdir _design
+</pre></div>
+</div>
+<p>Make a directory for <code class="docutils literal"><span class="pre">design_doc1</span></code></p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>mkdir _design/design_doc1
+</pre></div>
+</div>
+<p>move the design doc files created with couchapp generate to the
+<code class="docutils literal"><span class="pre">design_doc1</span></code> directory:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>mv _attachments evently lists shows updates vendor views ./_design/design_doc1
+</pre></div>
+</div>
+<p>review the directory structure</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>ls  _design/design_doc1
+
+_attachments  evently  lists  shows  updates  vendor  views
+</pre></div>
+</div>
+<p>Now push <code class="docutils literal"><span class="pre">design_doc1</span></code>.
+Note that I have to include the url of the database as a parameter.
+Couchapp doesn&#8217;t seem to pick up the default db
+when I push from the <code class="docutils literal"><span class="pre">_design</span></code> directory.</p>
+<div class="highlight-shell"><div class="highlight"><pre>http://127.0.0.1:5984/test6     is the url of the new db
+
+<span class="nv">$ </span>couchapp push _design/design_doc1 http://127.0.0.1:5984/test6
+2010-08-23 15:47:45 <span class="o">[</span>INFO<span class="o">]</span> Visit your CouchApp here:
+http://127.0.0.1:5984/test6/_design/design_doc1/index.html
+</pre></div>
+</div>
+<p>Now check to see if db <code class="docutils literal"><span class="pre">test6</span></code> was created:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>curl http://127.0.0.1:5984/test6
+<span class="o">{</span><span class="s2">&quot;db_name&quot;</span>:<span class="s2">&quot;test6&quot;</span>,<span class="s2">&quot;doc_count&quot;</span>:1,<span class="s2">&quot;doc_del_count&quot;</span>:0,<span class="s2">&quot;update_seq&quot;</span>:1,<span class="s2">&quot;purge_seq&quot;</span>:0,<span class="s2">&quot;compact_running&quot;</span>:false,<span class="s2">&quot;disk_size&quot;</span>:106585,<span class="s2">&quot;instance_start_time&quot;</span>:<span class="s2">&quot;1282603665650439&quot;</span>,<span class="s2">&quot;disk_format_version&quot;</span>:5<span class="o">}</span>
+</pre></div>
+</div>
+<p>Now go into a browser and take a look at the <code class="docutils literal"><span class="pre">test6</span></code> db</p>
+<div class="highlight-shell"><div class="highlight"><pre>http://127.0.0.1:5984/_utils/database.html?test6
+</pre></div>
+</div>
+<p>You should see <code class="docutils literal"><span class="pre">_design/design_doc1</span></code> listed on the html page.
+That&#8217;s good, it means that <code class="docutils literal"><span class="pre">design_doc1</span></code> was created.</p>
+<p>Take a look at <code class="docutils literal"><span class="pre">design_doc1</span></code> in the futon web admin.
+Open this URL in your browser:</p>
+<div class="highlight-shell"><div class="highlight"><pre>http://127.0.0.1:5984/_utils/document.html?test6/_design/design_doc1
+</pre></div>
+</div>
+<p>You should see a nice listing of the <code class="docutils literal"><span class="pre">design_doc1</span></code>.
+Try opening the index page in your browser:</p>
+<div class="highlight-shell"><div class="highlight"><pre>http://127.0.0.1:5984/_utils/document.html?test6/_design/design_doc1/index.html
+</pre></div>
+</div>
+<p>This should serve up <code class="docutils literal"><span class="pre">index.html</span></code> from the <code class="docutils literal"><span class="pre">_attachments</span></code> subdirectory
+<code class="docutils literal"><span class="pre">test6/_design/design_doc1/_attachments/index.html</span></code>.</p>
+<p>Couchapp generate had created a sample view called recent-items.
+Try querying it:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>curl http://127.0.0.1:5984/test6/_design/design_doc1/_view/recent-items
+<span class="o">{</span><span class="s2">&quot;total_rows&quot;</span>:0,<span class="s2">&quot;offset&quot;</span>:0,<span class="s2">&quot;rows&quot;</span>:<span class="o">[]}</span>
+</pre></div>
+</div>
+<p>That&#8217;s it. Multiple design can be used to create different interfaces
+for users with different roles. For example, consider some data and the
+different ways that and admin versus a regular user interacting with it.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">CouchApp Command Line Tool</a><ul>
+      <li>Previous: <a href="extends.html" title="previous chapter">6. Extend couchapp</a></li>
+      <li>Next: <a href="../js/index.html" title="next chapter">JavaScript Application Programming</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/couchapp/multiple-design-docs.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Benoit Chesneau.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/couchapp/multiple-design-docs.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

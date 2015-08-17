@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4. Configuration &mdash; CouchApp 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="CouchApp 1.0.1 documentation" href="../index.html" />
+    <link rel="up" title="CouchApp Command Line Tool" href="index.html" />
+    <link rel="next" title="5. App Template" href="template.html" />
+    <link rel="prev" title="3. Command Line Usage" href="usage.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="configuration">
+<span id="couchapp-config"></span><h1>4. Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="couchapprc">
+<h2><code class="docutils literal"><span class="pre">.couchapprc</span></code><a class="headerlink" href="#couchapprc" title="Permalink to this headline">¶</a></h2>
+<p>Every CouchApp <strong>MUST</strong> have a <code class="docutils literal"><span class="pre">.couchapprc</span></code> file in the application directory.
+This file is a JSON object which contains configuration
+parameters that the command-line app uses to build and push your CouchApp.
+The <code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">generate</span></code> and <code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">init</span></code> commands
+create a default version of this file for you.</p>
+<p>The most common use for the <code class="docutils literal"><span class="pre">.couchapprc</span></code> file is to specify one or
+more CouchDB databases to use as the destination for the
+<code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">push</span></code> command. Destination databases are listed under the
+<code class="docutils literal"><span class="pre">env</span></code> key of the <code class="docutils literal"><span class="pre">.couchapprc</span></code> file as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;env&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="s">&quot;default&quot;</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="s">&quot;db&quot;</span> <span class="p">:</span> <span class="s">&quot;http://localhost:5984/mydb&quot;</span>
+    <span class="p">},</span>
+    <span class="s">&quot;prod&quot;</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="s">&quot;db&quot;</span> <span class="p">:</span> <span class="s">&quot;http://admin:password@myhost.com/mydb&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example, two environments are specified: <code class="docutils literal"><span class="pre">default</span></code>, which pushes
+to a local CouchDB instance without any authentication, and <code class="docutils literal"><span class="pre">prod</span></code>,
+which pushes to a remote CouchDB that requires authentication.
+Once these sections are defined in <code class="docutils literal"><span class="pre">.couchapprc</span></code>, you can push to your
+local CouchDB by running <code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">push</span></code> (the environment name
+<code class="docutils literal"><span class="pre">default</span></code> is used when no environment is specified) and push to the
+remote machine using <code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">push</span> <span class="pre">prod</span></code>. For a more complete
+discussion of the <code class="docutils literal"><span class="pre">env</span></code> section of the <code class="docutils literal"><span class="pre">.couchapprc</span></code> file, see the
+<a class="reference external" href="http://guide.couchdb.org/draft/managing.html#configuring">Managing Design
+Documents</a>
+chapter of <strong>CouchDB: The Definitive Guide</strong>.</p>
+<p>The <code class="docutils literal"><span class="pre">.couchapprc</span></code> file is also used to configure extensions to the
+<code class="docutils literal"><span class="pre">couchapp</span></code> tool. See the <a class="reference internal" href="extends.html#couchapp-extend"><span>Extend couchapp</span></a> page for more details.</p>
+</div>
+<div class="section" id="couchapp-conf">
+<h2><code class="docutils literal"><span class="pre">~/.couchapp.conf</span></code><a class="headerlink" href="#couchapp-conf" title="Permalink to this headline">¶</a></h2>
+<p>One drawback to declaring environments in the <code class="docutils literal"><span class="pre">.couchapprc</span></code> file is
+that any usernames and passwords required to push documents are stored
+in that file. If you are using source control for your CouchApp, then
+those authentication credentials are checked in to your (possibly
+public) source control server. To avoid this problem, the <code class="docutils literal"><span class="pre">couchapp</span></code>
+tool can also read environment configurations from a file stored in your
+home directory named <code class="docutils literal"><span class="pre">.couchapp.conf</span></code>. This file has the same syntax
+as <code class="docutils literal"><span class="pre">.couchapprc</span></code> but has the advantage of being outside of the source
+tree, so sensitive login information can be protected. If you already
+have a working <code class="docutils literal"><span class="pre">.couchapprc</span></code> file, simply move it to
+<code class="docutils literal"><span class="pre">~/.couchapp.conf</span></code> and run <code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">init</span></code> to generate a new, empty
+<code class="docutils literal"><span class="pre">.couchapprc</span></code> file inside your CouchApp directory. If you don&#8217;t have a
+<code class="docutils literal"><span class="pre">.couchapprc</span></code> file, <code class="docutils literal"><span class="pre">couchapp</span></code> will display the dreaded
+<code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">error:</span> <span class="pre">You</span> <span class="pre">aren't</span> <span class="pre">in</span> <span class="pre">a</span> <span class="pre">couchapp</span></code> message.</p>
+</div>
+<div class="section" id="couchapp">
+<h2><code class="docutils literal"><span class="pre">~/.couchapp</span></code><a class="headerlink" href="#couchapp" title="Permalink to this headline">¶</a></h2>
+<p>Please see <a class="reference internal" href="template.html#couchapp-template"><span>App Template</span></a></p>
+</div>
+<div class="section" id="couchappignore">
+<h2><code class="docutils literal"><span class="pre">.couchappignore</span></code><a class="headerlink" href="#couchappignore" title="Permalink to this headline">¶</a></h2>
+<p>A <code class="docutils literal"><span class="pre">.couchappignore</span></code> file specifies intentionally untracked files that
+couchapp should ignore. It&#8217;s a simple json file containing an array of
+regexps that will be use to ignore file.</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span>
+  <span class="s">&quot;.*</span><span class="se">\\</span><span class="s">.swp$&quot;</span><span class="p">,</span>
+  <span class="s">&quot;.*~$&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>will ignore all files ending in <code class="docutils literal"><span class="pre">.swp</span></code> and <code class="docutils literal"><span class="pre">~</span></code>. Be sure to leave out the
+final , in the list.</p>
+<p>You can check if couchapp really ignores the files by specifying the -v
+option:</p>
+<div class="highlight-python"><div class="highlight"><pre>couchapp -v push
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Windows doesn&#8217;t like files that only have an extension,
+so creating the <code class="docutils literal"><span class="pre">.couchappignore</span></code> file will be a challenge in windows.
+Possible solutions to creating this file are:</p>
+<p class="last">Using cygwin, type: touch .couchappignore cd /to/couchappand then
+notepad .couchappignore</p>
+</div>
+<p>TODO: more information about other templates like vendor, view, etc.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4. Configuration</a><ul>
+<li><a class="reference internal" href="#couchapprc"><code class="docutils literal"><span class="pre">.couchapprc</span></code></a></li>
+<li><a class="reference internal" href="#couchapp-conf"><code class="docutils literal"><span class="pre">~/.couchapp.conf</span></code></a></li>
+<li><a class="reference internal" href="#couchapp"><code class="docutils literal"><span class="pre">~/.couchapp</span></code></a></li>
+<li><a class="reference internal" href="#couchappignore"><code class="docutils literal"><span class="pre">.couchappignore</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">CouchApp Command Line Tool</a><ul>
+      <li>Previous: <a href="usage.html" title="previous chapter">3. Command Line Usage</a></li>
+      <li>Next: <a href="template.html" title="next chapter">5. App Template</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/couchapp/config.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Benoit Chesneau.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/couchapp/config.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

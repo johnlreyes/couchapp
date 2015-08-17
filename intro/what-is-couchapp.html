@@ -1,0 +1,527 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>What is CouchApp? &mdash; CouchApp 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="CouchApp 1.0.1 documentation" href="../index.html" />
+    <link rel="next" title="CouchApp Development Tools" href="dev-tools.html" />
+    <link rel="prev" title="CouchApp: Web Application Hosted in Apache CouchDB" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="what-is-couchapp">
+<span id="id1"></span><h1>What is CouchApp?<a class="headerlink" href="#what-is-couchapp" title="Permalink to this headline">¶</a></h1>
+<p>This blog post is in response to a lot of well-deserved confusion in the
+community around CouchApps. We haven&#8217;t been clear enough in the past
+(either in technical description or in the notion of the project). I
+hope to change all that (with your help). This is just the beginning.</p>
+<div class="section" id="the-basics">
+<h2>The Basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
+<p>A CouchApp is just a JavaScript and HTML5 app that can be served
+<em>directly</em> to the browser from CouchDB, without any other software in the
+stack. There are many benefits (and some constraints) to doing it this
+way. The first section of this article will address these tradeoffs.</p>
+<p>In the bad old days (2008 and earlier), if you wanted to write a dynamic
+database-backed web application, you had to have an architecture that
+looked like a layer cake:</p>
+<div class="highlight-python"><div class="highlight"><pre>Browser (UI and links between pages)
+-------------- HTTP ---------------
+Application server (business logic, templates, etc)
+--------- custom binary -----------
+Persistence: MySQL, PostgreSQL, Oracle
+</pre></div>
+</div>
+<p>In fact, the bad old days are still with us, as most applications still
+rely on fragile custom code, running in an application server like Ruby
+on Rails, Python&#8217;s Django, or some kinda Java thing. The pain-points of
+the 3 tier architecture are well known: application developers must
+understand the concept of shared-nothing state, or else clients can see
+inconsistent results if they are load balanced across a cluster of app
+servers. The application server is usually a memory hog. And at the end
+of the day, when you&#8217;ve finally gotten the app layer to horizontal
+scalability, it turns our that your database-tier has fatal scalability
+flaws...</p>
+<p>CouchDB is an HTTP server, capable of serving HTML directly to the
+browser. It is also a database designed from the ground up for
+horizontal scalability. Did I say silver bullet? ;) (Of course it is not
+a silver bullet &#8211; if you can&#8217;t fit your app into CouchDB&#8217;s constraints,
+you&#8217;ll still have scaling issues.) If you can build your app <em>with the
+grain</em> of CouchDB&#8217;s APIs, then you can piggyback on all the work
+<a class="reference external" href="http://enda.squarespace.com/tech/2010/3/4/couchdb-at-scale-4-billion-requests-so-far.html">other</a>
+people have done to scale.</p>
+<p>The fact is, 2-layer applications are simpler:</p>
+<div class="highlight-python"><div class="highlight"><pre>Browser (UI and links between pages)
+-------------- HTTP ---------------
+CouchDB (persistence, business logic, and templating)
+</pre></div>
+</div>
+<p>Because CouchDB is a web server, you can serve applications directly the
+browser without any middle tier. When I&#8217;m feeling punchy, I like to call
+the traditional application server stack &#8220;extra code to make CouchDB
+uglier and slower.&#8221;</p>
+<p>Aside from simplicity and the scalability that comes with it, there is
+another major benefit to creating a 100% pure CouchApp:
+<a class="reference external" href="http://wiki.apache.org/couchdb/Replication">Replication.</a>. When your
+app is hosted by just a CouchDB, that means it can be run from <em>any</em>
+CouchDB, with no need to set up complex server-side dependencies. When
+your app can run on <em>any</em> CouchDB, you are free to take advantage of
+CouchDB&#8217;s killer feature: replicating the app and the data anywhere on
+the network.</p>
+<p>Have you ever been frustrated by a slow website? Filling out forms and
+waiting even a few seconds for the response can be infuriating. Many
+users will hit the submit button over and over again, compounding
+whatever performance issues that are effecting them, while introducing
+data integrity issues as well. Google, Facebook, and other large
+competitive web properies know that <a class="reference external" href="http://perspectives.mvdirona.com/2009/10/31/TheCostOfLatency.aspx">perceived latency drives user
+engagement like nothing else, and they invest huge sums to make their
+sites seem
+faster.</a></p>
+<p>Your site can be faster than theirs, if you serve it from localhost.
+CouchDB makes this possible. Here are <a class="reference external" href="http://couch.io/get">installers for OSX, Windows, and
+Linux</a> and you can install <a class="reference external" href="http://couch.io/android">CouchDB on Android
+here</a>.</p>
+<p>The take-home message from this section is: CouchDB can scale. If your
+app is served by raw CouchDB, it can scale just the same. Also, there&#8217;s
+no server faster than the server running on your local device. And fast
+is what matters for users.</p>
+<p>In the next section we&#8217;ll see what it takes to get your app to be served
+directly from CouchDB, and what you can (and can&#8217;t) do.</p>
+</div>
+<div class="section" id="couchdb-s-built-in-programming-model">
+<h2>CouchDB&#8217;s built-in programming model<a class="headerlink" href="#couchdb-s-built-in-programming-model" title="Permalink to this headline">¶</a></h2>
+<p>The CouchDB API is full featured and applicable to a lot of use cases.
+We can&#8217;t possible go in-depth here. Instead we&#8217;ll focus only on the broad
+outline, and on what is useful and necessary for CouchApps. If you want
+to learn more, check out <a class="reference external" href="http://wiki.apache.org/couchdb">the CouchDB
+wiki</a> or the <a class="reference external" href="http://books.couchdb.org/">free CouchDB
+book</a>.</p>
+<p>The first thing to understand about CouchDB is that the entire API is
+HTTP. Data is stored and retrieved using the protocol your browser is
+good at. Even <a class="reference external" href="http://jchris.couchone.com/_utils/couch_tests.html?script/couch_tests.js">the CouchDB test
+suite</a>
+is written in JavaScript and executed from the browser.
+<strong>It&#8217;s all just HTTP.</strong></p>
+<div class="section" id="html-attachments">
+<h3>HTML Attachments<a class="headerlink" href="#html-attachments" title="Permalink to this headline">¶</a></h3>
+<p>A common question I get from people starting to write Ajax apps using
+CouchDB, is &#8220;when I try to query the CouchDB with jQuery, it doesn&#8217;t
+work.&#8221; Usually it turns out that they have an index.html file on their
+filesystem, which is attempting to do an Ajax call against the CouchDB
+server. After I explain to them <a class="reference external" href="http://en.wikipedia.org/wiki/Same_origin_policy">the same origin security
+policy</a>, they start
+to understand this this means CouchDB needs to serve their HTML (rather
+than loading it in the browser direct from the filesystem).</p>
+<p>CouchDB documents may have <a class="reference external" href="http://stackoverflow.com/questions/1439371/creating-a-couchdb-standalone-attachment-using-curl">binary
+attachments.</a>
+The easiest way to add an attachment to a document is via Futon.
+We&#8217;ll do that later in this blog post.</p>
+<p>So, the simplest possible CouchApp is just an HTML file, served directly
+from CouchDB, that uses Ajax to load and save data from the CouchDB.</p>
+</div>
+<div class="section" id="map-reduce-queries">
+<h3>Map Reduce queries<a class="headerlink" href="#map-reduce-queries" title="Permalink to this headline">¶</a></h3>
+<p>What sets CouchDB apart from a simple key value store like Memcached or
+<a class="reference external" href="http://aws.amazon.com/s3/">Amazon S3</a>, is that you can query it by
+building indexes across the stored objects. You do this by writing
+JavaScript functions that are passed each of your documents, and can
+pick from them a set of keys under which you&#8217;d like to locate them.</p>
+<p>So for a blog post, you might pick out all the tags, and make keys like
+<code class="docutils literal"><span class="pre">[tag,</span> <span class="pre">doc.created_at]</span></code>. Once you have a view like that, you can
+easily get a view of all your blog posts with a given tag, in
+chronological order, no less. By adding the reduce operator <code class="docutils literal"><span class="pre">_count</span></code>
+you can also see how many blog posts are tagged <code class="docutils literal"><span class="pre">&quot;foo&quot;</span></code> or whatever.</p>
+<p>I&#8217;m not gonna try to teach you all about views here. Try the <a class="reference external" href="http://books.couchdb.org/relax/design-documents/views">CouchDB
+book&#8217;s guide to
+views</a>, the
+<a class="reference external" href="http://wiki.apache.org/couchdb/HTTP_view_API">wiki</a> and this
+<a class="reference external" href="http://books.couchdb.org/relax/reference/views-for-sql-jockeys">chapter on advanced
+views</a>.</p>
+</div>
+<div class="section" id="server-side-validations">
+<h3>Server Side Validations<a class="headerlink" href="#server-side-validations" title="Permalink to this headline">¶</a></h3>
+<p>The second thing people usually ask when they start to grok the CouchApp
+model, is &#8220;How do I keep people from destroying all my data? How do I
+ensure they only do what they are allowed to do?&#8221; The answer to that is
+<a class="reference external" href="http://books.couchdb.org/relax/design-documents/validation-functions">validation
+functions</a>.
+In a nutshell, each time someone saves or updates a CouchDB document, it
+is passed to your validation function, which has the option to throw an
+error. It can either throw <code class="docutils literal"><span class="pre">{&quot;forbidden&quot;</span> <span class="pre">:</span> <span class="pre">&quot;no</span> <span class="pre">matter</span> <span class="pre">what&quot;}</span></code> or
+<code class="docutils literal"><span class="pre">{&quot;unauthorized&quot;</span> <span class="pre">:</span> <span class="pre">&quot;maybe</span> <span class="pre">if</span> <span class="pre">you</span> <span class="pre">login</span> <span class="pre">as</span> <span class="pre">someone</span> <span class="pre">else&quot;}</span></code> where, of
+course, you are free to craft your own messages. If the function doesn&#8217;t
+have any errors, the save is allowed to proceed.</p>
+</div>
+<div class="section" id="rendering-dynamic-html">
+<h3>Rendering Dynamic HTML<a class="headerlink" href="#rendering-dynamic-html" title="Permalink to this headline">¶</a></h3>
+<p>After a new user understands validation functions, they have begun to
+see that perhaps CouchDB / CouchApps is a good candidate for their
+application. But maybe something is missing... Search engines don&#8217;t
+treat Ajax applications with the same respect they do static HTML
+applications. Also, a fair proportion of users have JavaScript disabled,
+or are using a screen-reader type application, which may not understand
+Ajax.</p>
+<p>These are all great reasons your application should ship the basic
+content of a page as real-deal HTML. Luckily, CouchDB has an answer to
+that as well.</p>
+<p><a class="reference external" href="http://books.couchdb.org/relax/design-documents/shows">Show
+functions</a>
+allow you to transform a document <code class="docutils literal"><span class="pre">GET</span></code> from JSON into the format of
+your choice. On <a class="reference external" href="http://pages.jchris.couchone.com/page/donk">this wiki
+application</a> the main
+wiki content is rendered as server-side HTML, using a show function. You
+can also use a show function to provide an XML, CSV, or even PNG version
+of your original document. Some folks also use it to filter
+security-sensitive fields from a JSON document, so that only public data
+is available to end- users.</p>
+<p><a class="reference external" href="http://books.couchdb.org/relax/design-documents/lists">List
+functions</a> are
+the analog of show functions, but for view results. A view result is
+just a long list of JSON rows. A list function transforms those rows to
+other formats. Here is <a class="reference external" href="http://jchrisa.net/drl/_design/sofa/_view/recent-posts?descending=true&amp;limit=5">the JSON view of recent posts on my
+blog</a>,
+and here is <a class="reference external" href="http://jchrisa.net/drl/_design/sofa/_list/index/recent-posts?descending=true&amp;limit=5">the HTML page that results from running that same view
+through a list
+function.</a></p>
+<p>We added these capabilities to CouchDB because we knew that without the
+ability to serve plain-old HTML, we wouldn&#8217;t be completely RESTful.</p>
+<p>Rounding out this group, is the ability to accept plain HTML form POSTs.
+(And other arbitary input). For that, CouchDB uses <a class="reference external" href="update-functions.md">update
+functions</a>, which can take arbitrary input and
+turn it in to JSON for saving to the database.</p>
+</div>
+<div class="section" id="pretty-urls">
+<h3>Pretty URLs<a class="headerlink" href="#pretty-urls" title="Permalink to this headline">¶</a></h3>
+<p>&#8220;All well and good&#8221;, you may say, &#8220;but I can&#8217;t really suggest to my
+clients that their website should have URLs like
+<code class="docutils literal"><span class="pre">[http://jchrisa.net/drl/_design/sofa/_list/index/recent-posts?descending=true&amp;limit=5</span></code>](<a class="reference external" href="http://jchrisa.net/drl/_design/sofa/_list/index/recent-posts?descending=true&amp;limit=5">http://jchrisa.net/drl/_design/sofa/_list/index/recent-posts?descending=true&amp;limit=5</a>)!&#8221;</p>
+<p>I used to respond with skepicism to such claims, <em>like a total moaf</em>.
+But I&#8217;ve mended my ways, and seen the light. It also didn&#8217;t hurt that
+<a class="reference external" href="http://twitter.com/benoitc">Benoit</a> committed an <a class="reference external" href="http://blog.couchbase.com/what%E2%80%99s-new-apache-couchdb-011-%E2%80%94-part-one-nice-urls-rewrite-rules-and-virtual-hosts">awesome
+rewriter</a>
+to CouchDB, so we can provide nice pretty URLs like <code class="docutils literal"><span class="pre">/posts/recent</span></code>
+instead of the above mess.</p>
+</div>
+<div class="section" id="realtime-updates">
+<h3>Realtime Updates<a class="headerlink" href="#realtime-updates" title="Permalink to this headline">¶</a></h3>
+<p>Lastly, something folks don&#8217;t usually ask for, but which is insanely
+useful: <a class="reference external" href="http://books.couchdb.org/relax/reference/change-notifications">realtime notification about changes to the
+database.</a>
+Essentially, CouchDB keeps a record of the order in which operations
+were applied to a given database. This way, you can always ask it
+&#8220;what&#8217;s happened since the last time I asked?&#8221;</p>
+<p>CouchDB implements this with the <code class="docutils literal"><span class="pre">_changes</span></code> feed, a JSON HTTP
+response, which sends a single line, whenever something happens to the
+database. Since CouchDB is implemented in Erlang, it is not expensive
+for it to hold open tens of thousands of concurrent connections.</p>
+<p>The <code class="docutils literal"><span class="pre">_changes</span></code> feed can be used to power realtime updates to a browser
+UI. For instance, <a class="reference external" href="http://couchapp.org/example/_design/example/index.html">this chat
+room</a> updates
+in realtime whenever a new message is created.</p>
+<p>The <code class="docutils literal"><span class="pre">_changes</span></code> feed is integral to CouchDB itself (not just a bolted
+on feature), as it is used to power to replication itself. The
+replicator listens to the changes feed of the source database, and
+writes changes to the target database. This is what allows CouchDB to
+keep 2 database in sync in near realtime.</p>
+<p>You can also use <code class="docutils literal"><span class="pre">_changes</span></code> to drive asynchronous business logic.
+There will be a webcast in August on this topic, as well as a blog post
+with more details, from Couchio&#8217;s <a class="reference external" href="http://twitter.com/_jhs">Jason
+Smith</a>.</p>
+</div>
+<div class="section" id="filtered-replication">
+<h3>Filtered replication<a class="headerlink" href="#filtered-replication" title="Permalink to this headline">¶</a></h3>
+<p>One last part of the programming model. You can write a JavaScript
+function that decides whether to include a given change in the
+<code class="docutils literal"><span class="pre">_changes</span></code> feed. The possibilities are endless. See <a class="reference external" href="http://blog.couch.io/post/468392274/whats-new-in-apache-couchdb-0-11-part-three-new">Jan&#8217;s blog post
+on new replication
+features</a>
+for some interesting use-cases that might stimulate your imagination.</p>
+</div>
+</div>
+<div class="section" id="hello-world">
+<h2>Hello World<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h2>
+<p>Now that I&#8217;ve described the theory of CouchApps to you, let&#8217;s dig into
+the practice. Before we get into the expert toolchain, let&#8217;s see what we
+can do with a little bit of HTML. I&#8217;ll assume you have a CouchDB running
+at localhost. If you don&#8217;t, install one now (or signup for hosting at
+<a class="reference external" href="http://www.iriscouch.com/">Iris Couch</a> or
+<a class="reference external" href="http://cloudant.com/">Cloudant</a>).</p>
+<p>Quick, create a file called index.html, and put this in it:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;title&gt;Tiny CouchApp&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Tiny CouchApp&lt;/h1&gt;
+    &lt;ul id=&quot;databases&quot;&gt;&lt;/ul&gt;
+  &lt;/body&gt;
+  &lt;script src=&quot;/_utils/script/jquery.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;/_utils/script/jquery.couch.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    $.couch.allDbs({
+      success : function(dbs) {
+        dbs.forEach(function(db) {
+          $(&quot;#databases&quot;).append(&#39;&lt;li&gt;&lt;a href=&quot;/_utils/database.html?&#39;+db+&#39;&quot;&gt;&#39;+db+&#39;&lt;/a&gt;&lt;/li&gt;&#39;);
+        });
+      }
+    });
+
+  &lt;/script&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>Now browse to your CouchDB&#8217;s Futon at <a class="reference external" href="http://localhost:5984/_utils">http://localhost:5984/_utils</a> and
+create a database called &#8220;whatever&#8221;. Now visit that database, and create
+a document. You will be creating what is known as a, &#8220;Design Document&#8221;,
+which is a special kind of document in CouchDb that contains application
+code. The only thing you need to know now is to set the document id to
+something that begins with &#8220;_design/&#8221; and save it. Now click the button
+labeled &#8220;Upload Attachment&#8221; and choose the index.html file you just
+created, and upload it. Now click the link in Futon for index.html, and
+you should see a list of the databases on that CouchDB instance.</p>
+<p>(rengel, 2012-09-05: Because of the »Same Origin« policy the index.html
+file has to be in the same directory, or a subdirectory thereof, as your
+whatever database.)</p>
+<p>You gotta admit there was nothing to that.</p>
+</div>
+<div class="section" id="make-it-easy-it-with-the-couchapp-toolchain">
+<h2>Make it easy it with the CouchApp toolchain<a class="headerlink" href="#make-it-easy-it-with-the-couchapp-toolchain" title="Permalink to this headline">¶</a></h2>
+<p>Now that we&#8217;ve seen how you can build a basic CouchApp with the same set
+of tools you&#8217;d use to do plain-old HTML, CSS, and JavaScript
+development, let&#8217;s learn how the experts (and the lazy!) do it.</p>
+<p>Uploading each changed file to CouchDB via Futon would get tedious
+quick. Alternatively, you could download the entire design document as
+JSON, and edit that JSON in your editor... but keeping track of proper
+JSON escaping and formattng is a task better done by a machine.</p>
+<p>Back in the early days of CouchDB, I solved this problem with a Ruby
+script that would update my map and reduce function from a folder. This
+way I could open the folder in TextMate, and get all the proper
+JavaScript syntax highlighting. To deploy the changes I&#8217;d run the Ruby
+script, and CouchDB would have my new Map Reduce views.</p>
+<p>That would have been the end of the story, except that for some reason,
+many people had boatloads of trouble installing the Ruby script. I may
+have been suffering from a bit of &#8220;grass is always greener,&#8221; because my
+reaction was to port the Ruby stuff to Python (with a little help from
+my friends), which I thought would have a cleaner install story. (It
+almost does!)</p>
+<p>Since then <a class="reference external" href="http://github.com/couchapp/couchapp/">the Python CouchApp
+script</a> has grown in
+capability. It boasts the ability to <a class="reference external" href="http://groups.google.com/group/couchapp/browse_thread/thread/67ccbdcdf9023106">push edits in real
+time</a>,
+import vendor modules, and more. Benoit Chesneau keeps it up to date
+pretty agressively, it just got some <a class="reference external" href="http://github.com/couchapp/couchapp/commit/9ff4ec09664a286f0c408ac76eb9c5589a56e208">GeoCouch features
+today.</a></p>
+<p>So let&#8217;s use it!</p>
+<div class="section" id="installing-couchapp">
+<h3>Installing CouchApp<a class="headerlink" href="#installing-couchapp" title="Permalink to this headline">¶</a></h3>
+<p>There is a lot of documentation already out there about how to install
+the CouchApp toolchain. I&#8217;ll just link to it. The basic installation
+instructions are <a class="reference external" href="http://github.com/couchapp/couchapp">in the README</a>
+and in <a class="reference external" href="http://books.couchdb.org/relax/example-app/design-documents">the CouchDB
+Book</a>.</p>
+<p>Here are some hints about <a class="reference external" href="http://wiki.apache.org/couchdb/Quirks_on_Windows">installing on
+Windows.</a></p>
+<p>Once you have CouchApp installed, the basic usage is simple. From within
+your application directory, issue the following command.</p>
+<div class="highlight-python"><div class="highlight"><pre>couchapp push . http://myname:mypass@localhost:5984/mydb
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal"><span class="pre">myname</span></code> and <code class="docutils literal"><span class="pre">mypass</span></code> with those you set up on your CouchDB
+using Futon. If you didn&#8217;t setup an admin password on Futon, you should
+do that &#8211; until you do, your CouchDB can be administered by anyone.
+Also, if you are running a CouchDB in the cloud, you&#8217;ll need to replace
+<code class="docutils literal"><span class="pre">localhost:5984</span></code> with something like <code class="docutils literal"><span class="pre">mycouch.couchone.com</span></code>. Also,
+of course, <code class="docutils literal"><span class="pre">mydb</span></code> should be changed to the name of the database you
+want your program to live in.</p>
+<p>All this is coverered in great detail in the CouchApp README and the
+book, as linked above.</p>
+</div>
+<div class="section" id="the-standard-library">
+<h3>The Standard Library<a class="headerlink" href="#the-standard-library" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;ve made it nearly to the end of this post. The last thing to cover
+are the various JavaScript libraries for making CouchApps. I won&#8217;t try
+to document them, just name them, and say a little about their purpose.</p>
+<p>I have a mental plan to clean up and consolidate some of these
+libraries, so they are more modular. This should make it so that
+CouchApp code loads faster, among other things.</p>
+<div class="section" id="the-jquery-couchdb-client-api">
+<h4>The jQuery CouchDB Client API<a class="headerlink" href="#the-jquery-couchdb-client-api" title="Permalink to this headline">¶</a></h4>
+<p>We already used
+<a class="reference external" href="http://daleharvey.github.com/jquery.couch.js-docs/symbols/index.html">jquery.couch.js</a>
+in the Tiny CouchApp example HTML above. This is the basic CouchDB
+library for jQuery. It handles things like saveDoc and openDoc, view
+queries, replication requests, etc. Essentially it wraps the CouchDB API
+in Ajaxy goodness. This library ships as part of CouchDB, as it is used
+by Futon.</p>
+</div>
+<div class="section" id="the-couchapp-code-loader">
+<h4>The CouchApp Code Loader<a class="headerlink" href="#the-couchapp-code-loader" title="Permalink to this headline">¶</a></h4>
+<p>The CouchApp toolchain ships with
+<a class="reference external" href="http://github.com/couchapp/couchapp/blob/master/vendor/_attachments/jquery.couch.app.js">jquery.couch.app.js</a>,
+which is tasked with one job &#8211; loading your application code into the
+page. This CouchApp jQuery plugin loads your design document (the JSON
+saved as a result of a <code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">push</span></code> command), so that the browser
+has access to your view definitions, show and list functions, etc. It is
+invoked like so:</p>
+<div class="highlight-python"><div class="highlight"><pre>$.couch.app(function(app){
+  // app.db is your jquery.couch.js object
+  // app.require(&quot;lib/foo&quot;) gives you access to libraries
+});
+</pre></div>
+</div>
+<p>Essentially, all this function does, is inspect the page you are on,
+determine how to load the design document, load it, and gives you an
+object that references it and allows you to require libraries from it.
+(There is some legacy featuritis in there, but I&#8217;m working to remove
+that.)</p>
+</div>
+<div class="section" id="evently">
+<h4>Evently<a class="headerlink" href="#evently" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="http://github.com/couchapp/couchapp/blob/master/vendor/_attachments/jquery.evently.js">Evently</a>
+is a convenience library I wrote for myself. Essentially it does two
+things: One is it allows you to write complex jQuery code in a
+declarative fashion. This makes code reuse easier, by avoiding the
+tangled web of dependencies you often see in deeply nested jQuery code.
+The other is that Evently knows a bunch of CouchDB tricks, so you can
+get it to run a view query and hand you the results, without having to
+write nested callbacks in the Ajax style.</p>
+<p>As a coincidence, Evently&#8217;s declarative structures happen to map onto
+JSON objects nicely. It also happens that <code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">push</span></code> maps
+filesystem structures to JSON code as well. It was only after I&#8217;d
+written lots of Evently code all in one file, that I realized I could
+nest the JSON structures into a tree of folders and JavaScript files.</p>
+<p>People think that Evently and the deeply-nested folders and files things
+must go together, but it is just one way of doing things. For more
+<a class="reference external" href="http://couchapp.couchone.com/docs/_design/docs/index.html#/topic/evently">Evently docs, visit this
+link</a>.</p>
+</div>
+<div class="section" id="pathbinder">
+<h4>Pathbinder<a class="headerlink" href="#pathbinder" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="http://github.com/couchapp/couchapp/blob/master/vendor/_attachments/jquery.pathbinder.js">Pathbinder</a>
+makes it so you can assign events to be triggered when the hash part of
+the browser URL changes. Evently knows how to use it, so you can
+declaratively link paths and events. <a class="reference external" href="http://couchapp.couchone.com/docs/_design/docs/index.html#/topic/pathbinder">Pathbinder docs are
+here.</a></p>
+</div>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>There is a <a class="reference internal" href="../user/list-of-couchapps.html#list-of-couchapps"><span>List of CouchApps</span></a>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What is CouchApp?</a><ul>
+<li><a class="reference internal" href="#the-basics">The Basics</a></li>
+<li><a class="reference internal" href="#couchdb-s-built-in-programming-model">CouchDB&#8217;s built-in programming model</a><ul>
+<li><a class="reference internal" href="#html-attachments">HTML Attachments</a></li>
+<li><a class="reference internal" href="#map-reduce-queries">Map Reduce queries</a></li>
+<li><a class="reference internal" href="#server-side-validations">Server Side Validations</a></li>
+<li><a class="reference internal" href="#rendering-dynamic-html">Rendering Dynamic HTML</a></li>
+<li><a class="reference internal" href="#pretty-urls">Pretty URLs</a></li>
+<li><a class="reference internal" href="#realtime-updates">Realtime Updates</a></li>
+<li><a class="reference internal" href="#filtered-replication">Filtered replication</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hello-world">Hello World</a></li>
+<li><a class="reference internal" href="#make-it-easy-it-with-the-couchapp-toolchain">Make it easy it with the CouchApp toolchain</a><ul>
+<li><a class="reference internal" href="#installing-couchapp">Installing CouchApp</a></li>
+<li><a class="reference internal" href="#the-standard-library">The Standard Library</a><ul>
+<li><a class="reference internal" href="#the-jquery-couchdb-client-api">The jQuery CouchDB Client API</a></li>
+<li><a class="reference internal" href="#the-couchapp-code-loader">The CouchApp Code Loader</a></li>
+<li><a class="reference internal" href="#evently">Evently</a></li>
+<li><a class="reference internal" href="#pathbinder">Pathbinder</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">CouchApp: Web Application Hosted in Apache CouchDB</a></li>
+      <li>Next: <a href="dev-tools.html" title="next chapter">CouchApp Development Tools</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/intro/what-is-couchapp.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Benoit Chesneau.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/intro/what-is-couchapp.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
