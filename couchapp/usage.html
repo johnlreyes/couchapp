@@ -100,9 +100,9 @@ Commands:
 <h3><code class="docutils literal"><span class="pre">generate</span></code><a class="headerlink" href="#generate" title="Permalink to this headline">¶</a></h3>
 <p>Allows you to generate a basic couchapp. It can also
 be used to create <a class="reference internal" href="template.html#couchapp-template"><span>template</span></a> of functions. e.g.:</p>
-<div class="highlight-shell"><div class="highlight"><pre>couchapp generate myapp
-<span class="nb">cd </span>myapp
-couchapp generate view someview
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>couchapp generate myapp
+<span class="nv">$ </span><span class="nb">cd </span>myapp
+<span class="nv">$ </span>couchapp generate view someview
 </pre></div>
 </div>
 </div>
@@ -112,16 +112,16 @@ couchapp generate view someview
 application it create a default <code class="docutils literal"><span class="pre">.couchapprc</span></code> file. This file is
 needed by couchapp to find your application. Use this command when
 you clone your application from an external repository (<code class="docutils literal"><span class="pre">git</span></code>, <code class="docutils literal"><span class="pre">hg</span></code>):</p>
-<div class="highlight-shell"><div class="highlight"><pre><span class="nb">cd </span>mycouchapp
-couchapp init
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>mycouchapp
+<span class="nv">$ </span>couchapp init
 </pre></div>
 </div>
 </div>
 <div class="section" id="push">
 <h3><code class="docutils literal"><span class="pre">push</span></code><a class="headerlink" href="#push" title="Permalink to this headline">¶</a></h3>
 <p>Push a couchapp to one or more <a class="reference external" href="http://couchdb.apache.org">CouchDB</a> server.</p>
-<div class="highlight-shell"><div class="highlight"><pre><span class="nb">cd </span>mycouchapp
-couchapp push http://someserver:port/mydb
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>mycouchapp
+<span class="nv">$ </span>couchapp push http://someserver:port/mydb
 </pre></div>
 </div>
 <ul class="simple">
@@ -138,7 +138,9 @@ couchapp</li>
 <h3><code class="docutils literal"><span class="pre">pushapps</span></code><a class="headerlink" href="#pushapps" title="Permalink to this headline">¶</a></h3>
 <p>Like <code class="docutils literal"><span class="pre">push</span></code> but on a folder containing couchapps.
 It allows you to send multiple couchapps at once.</p>
-<div class="highlight-shell"><div class="highlight"><pre>couchapp pushapps somedir/
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>ls somedir/
+app1/ app2/ app3/
+<span class="nv">$ </span>couchapp pushapps somedir/ http://localhost:5984/mydb
 </pre></div>
 </div>
 </div>
@@ -148,6 +150,13 @@ It allows you to send multiple couchapps at once.</p>
 folder containing simple document. With this command you can populate
 your <a class="reference external" href="http://couchdb.apache.org">CouchDB</a> with documents. Anotther way to do it is to create a
 <code class="docutils literal"><span class="pre">_docs</span></code> folder at the top of your couchapp folder.</p>
+</div>
+<div class="section" id="startapp">
+<h3><code class="docutils literal"><span class="pre">startapp</span></code><a class="headerlink" href="#startapp" title="Permalink to this headline">¶</a></h3>
+<p>It&#8217;s an alias of <code class="docutils literal"><span class="pre">generate</span> <span class="pre">app</span> <span class="pre">NAME</span></code>, e.g.:</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>couchapp startapp myapp
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -168,6 +177,7 @@ your <a class="reference external" href="http://couchdb.apache.org">CouchDB</a> 
 <li><a class="reference internal" href="#push"><code class="docutils literal"><span class="pre">push</span></code></a></li>
 <li><a class="reference internal" href="#pushapps"><code class="docutils literal"><span class="pre">pushapps</span></code></a></li>
 <li><a class="reference internal" href="#pushdocs"><code class="docutils literal"><span class="pre">pushdocs</span></code></a></li>
+<li><a class="reference internal" href="#startapp"><code class="docutils literal"><span class="pre">startapp</span></code></a></li>
 </ul>
 </li>
 </ul>
