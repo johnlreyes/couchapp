@@ -402,33 +402,6 @@ object that references it and allows you to require libraries from it.
 (There is some legacy featuritis in there, but I&#8217;m working to remove
 that.)</p>
 </div>
-<div class="section" id="evently">
-<h4><a class="reference external" href="https://github.com/jchris/evently">Evently</a><a class="headerlink" href="#evently" title="Permalink to this headline">¶</a></h4>
-<p>Evently is a convenience library I wrote for myself. Essentially it does
-two things: One is it allows you to write complex jQuery code in a
-declarative fashion. This makes code reuse easier, by avoiding the
-tangled web of dependencies you often see in deeply nested jQuery code.
-The other is that Evently knows a bunch of CouchDB tricks, so you can
-get it to run a view query and hand you the results, without having to
-write nested callbacks in the Ajax style.</p>
-<p>As a coincidence, Evently&#8217;s declarative structures happen to map onto
-JSON objects nicely. It also happens that <code class="docutils literal"><span class="pre">couchapp</span> <span class="pre">push</span></code> maps
-filesystem structures to JSON code as well. It was only after I&#8217;d
-written lots of Evently code all in one file, that I realized I could
-nest the JSON structures into a tree of folders and JavaScript files.</p>
-<p>People think that Evently and the deeply-nested folders and files things
-must go together, but it is just one way of doing things. For more
-<a class="reference external" href="http://couchapp.iriscouch.com/docs/_design/docs/index.html#/topic/evently">Evently docs, visit this
-link</a>.</p>
-</div>
-<div class="section" id="pathbinder">
-<h4>Pathbinder<a class="headerlink" href="#pathbinder" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="https://github.com/jchris/couchapp-docs/blob/master/vendor/couchapp/_attachments/jquery.pathbinder.js">Pathbinder</a>
-makes it so you can assign events to be triggered when the hash part of
-the browser URL changes. Evently knows how to use it, so you can
-declaratively link paths and events. <a class="reference external" href="http://couchapp.iriscouch.com/docs/_design/docs/index.html#/topic/pathbinder">Pathbinder docs are
-here.</a></p>
-</div>
 </div>
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
@@ -463,8 +436,6 @@ here.</a></p>
 <li><a class="reference internal" href="#the-standard-library">The Standard Library</a><ul>
 <li><a class="reference internal" href="#the-jquery-couchdb-client-api">The jQuery CouchDB Client API</a></li>
 <li><a class="reference internal" href="#the-couchapp-code-loader">The CouchApp Code Loader</a></li>
-<li><a class="reference internal" href="#evently">Evently</a></li>
-<li><a class="reference internal" href="#pathbinder">Pathbinder</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
