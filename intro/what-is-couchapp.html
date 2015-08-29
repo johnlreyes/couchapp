@@ -42,10 +42,12 @@
             
   <div class="section" id="what-is-couchapp">
 <span id="id1"></span><h1>What is CouchApp?<a class="headerlink" href="#what-is-couchapp" title="Permalink to this headline">¶</a></h1>
-<p>This blog post is in response to a lot of well-deserved confusion in the
-community around CouchApps. We haven&#8217;t been clear enough in the past
-(either in technical description or in the notion of the project). I
-hope to change all that (with your help). This is just the beginning.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This article came from a blog post by &#64;jchris.
+Some contents are out-of-date.
+We need your contribution!</p>
+</div>
 <div class="section" id="the-basics">
 <h2>The Basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
 <p>A CouchApp is just a JavaScript and HTML5 app that can be served
@@ -221,8 +223,10 @@ turn it in to JSON for saving to the database.</p>
 <div class="section" id="pretty-urls">
 <h3>Pretty URLs<a class="headerlink" href="#pretty-urls" title="Permalink to this headline">¶</a></h3>
 <p>&#8220;All well and good&#8221;, you may say, &#8220;but I can&#8217;t really suggest to my
-clients that their website should have URLs like
-<code class="docutils literal"><span class="pre">[http://jchrisa.net/drl/_design/sofa/_list/index/recent-posts?descending=true&amp;limit=5</span></code>](<a class="reference external" href="http://jchrisa.net/drl/_design/sofa/_list/index/recent-posts?descending=true&amp;limit=5">http://jchrisa.net/drl/_design/sofa/_list/index/recent-posts?descending=true&amp;limit=5</a>)!&#8221;</p>
+clients that their website should have URLs like:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://jchrisa.net/drl/_design/sofa/_list/index/recent-posts?descending=true&amp;limit=5
+</pre></div>
+</div>
 <p>I used to respond with skepicism to such claims, <em>like a total moaf</em>.
 But I&#8217;ve mended my ways, and seen the light. It also didn&#8217;t hurt that
 <a class="reference external" href="http://twitter.com/benoitc">Benoit</a> committed an <a class="reference external" href="http://blog.couchbase.com/what%E2%80%99s-new-apache-couchdb-011-%E2%80%94-part-one-nice-urls-rewrite-rules-and-virtual-hosts">awesome
@@ -233,7 +237,7 @@ instead of the above mess.</p>
 <div class="section" id="realtime-updates">
 <h3>Realtime Updates<a class="headerlink" href="#realtime-updates" title="Permalink to this headline">¶</a></h3>
 <p>Lastly, something folks don&#8217;t usually ask for, but which is insanely
-useful: <a class="reference external" href="http://books.couchdb.org/relax/reference/change-notifications">realtime notification about changes to the
+useful: <a class="reference external" href="http://guide.couchdb.org/draft/notifications.html">realtime notification about changes to the
 database.</a>
 Essentially, CouchDB keeps a record of the order in which operations
 were applied to a given database. This way, you can always ask it
@@ -339,12 +343,12 @@ import vendor modules, and more. Benoit Chesneau keeps it up to date
 pretty agressively, it just got some <a class="reference external" href="http://github.com/couchapp/couchapp/commit/9ff4ec09664a286f0c408ac76eb9c5589a56e208">GeoCouch features
 today.</a></p>
 <p>So let&#8217;s use it!</p>
-<div class="section" id="installing-couchapp">
-<h3>Installing couchapp<a class="headerlink" href="#installing-couchapp" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="installing-couchapp-py">
+<h3>Installing <code class="docutils literal"><span class="pre">couchapp.py</span></code><a class="headerlink" href="#installing-couchapp-py" title="Permalink to this headline">¶</a></h3>
 <p>There is a lot of documentation already out there about how to install
 the CouchApp toolchain. I&#8217;ll just link to it. The basic installation
 instructions are <a class="reference external" href="http://github.com/couchapp/couchapp">in the README</a>
-and in <a class="reference external" href="http://books.couchdb.org/relax/example-app/design-documents">the CouchDB
+and in <a class="reference external" href="http://guide.couchdb.org/draft/managing.html">the CouchDB
 Book</a></p>
 <p>Here are some hints about <a class="reference external" href="http://wiki.apache.org/couchdb/Quirks_on_Windows">installing on
 Windows.</a></p>
@@ -432,7 +436,7 @@ that.)</p>
 </li>
 <li><a class="reference internal" href="#hello-world">Hello World</a></li>
 <li><a class="reference internal" href="#make-it-easy-it-with-the-couchapp-toolchain">Make it easy it with the CouchApp toolchain</a><ul>
-<li><a class="reference internal" href="#installing-couchapp">Installing couchapp</a></li>
+<li><a class="reference internal" href="#installing-couchapp-py">Installing <code class="docutils literal"><span class="pre">couchapp.py</span></code></a></li>
 <li><a class="reference internal" href="#the-standard-library">The Standard Library</a><ul>
 <li><a class="reference internal" href="#the-jquery-couchdb-client-api">The jQuery CouchDB Client API</a></li>
 <li><a class="reference internal" href="#the-couchapp-code-loader">The CouchApp Code Loader</a></li>
