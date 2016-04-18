@@ -273,6 +273,28 @@ class LocalDoc(object):
                 package_views(self._doc, self._doc["views"], self.docdir,
                               objects)
 
+            if 'indexes' in self._doc:
+                # clean indexes
+                # we remove empty indexes and malformed from the list
+                # of pushed indexes. We also clean manifest
+                indexes = {}
+                dmanifest = {}
+                for i, fname in enumerate(manifest):
+                    if fname.startswith("indexes/") and fname != "indexes/":
+                        name, ext = os.path.splitext(fname)
+                        if name.endswith('/'):
+                            name = name[:-1]
+                        dmanifest[name] = i
+
+                for iname, value in self._doc['indexes'].iteritems():
+                    if value and isinstance(value, dict):
+                        indexes[iname] = value
+                    else:
+                        del manifest[dmanifest["indexes/%s" % iname]]
+                self._doc['indexes'] = indexes
+                package_views(self._doc, self._doc["indexes"], self.docdir,
+                              objects)
+
             if "fulltext" in self._doc:
                 package_views(self._doc, self._doc["fulltext"], self.docdir,
                               objects)

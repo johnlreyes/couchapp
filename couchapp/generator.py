@@ -23,7 +23,8 @@ DEFAULT_APP_TREE = ['_attachments',
                     'lists',
                     'shows',
                     'updates',
-                    'views']
+                    'views',
+                    'indexes']
 
 
 def init_basic(path):
@@ -38,6 +39,7 @@ def init_basic(path):
             shows/
             updates/
             views/
+            indexes/
     '''
     setup_dir(path, require_empty=True)
 
