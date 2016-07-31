@@ -158,21 +158,20 @@ Building from this branch in windows
 -----------------
 
 1. install latest python 2.7.x 32bits
-   e.g. https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi
+   $ https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi
 
 2. add to PATH the python home and the Scripts subfolder
-   e.g.
-   PATH=%PATH%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts;
-   PYTHON_HOME=<installed folder>
+   $ PATH=%PATH%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts;
+   $ PYTHON_HOME=<installed folder>
    
 3. install pypiwin32
-   pip install pypiwin32
+   $ pip install pypiwin32
 
 4. install py2exe
-   http://jaist.dl.sourceforge.net/project/py2exe/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe
+   $ http://jaist.dl.sourceforge.net/project/py2exe/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe
    
 5. install git
-   https://git-scm.com/download/win
+   $ https://git-scm.com/download/win
    
 6. install couchapp with this branch (cloudant-search-index)
-   pip install -e git+http://github.com/johnlreyes/couchapp.git@cloudant-search-index#egg=Couchapp
+   $ pip install -e git+http://github.com/johnlreyes/couchapp.git@cloudant-search-index#egg=Couchapp
